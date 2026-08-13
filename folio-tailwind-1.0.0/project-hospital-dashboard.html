@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital Management Dashboard | Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<style>
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e2e8f0;}
+.gradient-text{background:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.glass{background:rgba(18,18,26,0.8);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.05);}
+.code-block{background:#1e1e2e;border-radius:12px;overflow:hidden;border:1px solid #2a2a3a;}
+.code-header{background:#252536;padding:12px 16px;border-bottom:1px solid #2a2a3a;display:flex;align-items:center;gap:8px;}
+.dot{width:12px;height:12px;border-radius:50%;}
+.dot-red{background:#ff5f56;}.dot-yellow{background:#ffbd2e;}.dot-green{background:#27c93f;}
+.metric-card{background:linear-gradient(135deg,rgba(99,102,241,0.1),rgba(139,92,246,0.05));border:1px solid rgba(99,102,241,0.2);}
+.table-card{transition:all 0.3s ease;}.table-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,0.4);}
+.scroll-reveal{opacity:0;transform:translateY(30px);transition:all 0.6s ease;}.scroll-reveal.active{opacity:1;transform:translateY(0);}
+.erd-box{border:2px solid #6366f1;border-radius:8px;padding:8px 12px;background:rgba(99,102,241,0.1);font-size:0.75rem;font-weight:600;text-align:center;}
+.pulse-dot{animation:pulse 2s infinite;}@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.tab-btn{transition:all 0.3s;border-bottom:2px solid transparent;cursor:pointer;}
+.tab-btn.active{border-bottom-color:#6366f1;color:#6366f1;}
+.tab-content{display:none;}.tab-content.active{display:block;animation:fadeIn 0.4s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.skill-tag{background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);color:#818cf8;}
+.workflow-step{position:relative;}
+.workflow-step::before{content:'';position:absolute;left:20px;top:48px;width:2px;height:calc(100% - 24px);background:linear-gradient(to bottom,#6366f1,transparent);}
+.workflow-step:last-child::before{display:none;}
+.step-number{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem;flex-shrink:0;}
+.hero-grid{background-image:radial-gradient(circle at 1px 1px,rgba(99,102,241,0.15) 1px,transparent 0);background-size:40px 40px;}
+.glow-border{box-shadow:0 0 20px rgba(99,102,241,0.15);}
+.copy-btn{opacity:0;transition:opacity 0.2s;}.code-block:hover .copy-btn{opacity:1;}
+::-webkit-scrollbar{width:8px;}::-webkit-scrollbar-track{background:#0a0a0f;}::-webkit-scrollbar-thumb{background:#2a2a3a;border-radius:4px;}
+</style>
+<base target="_blank">
+</head>
+<body class="antialiased">
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<a href="index.html" class="flex items-center gap-2 text-white font-bold text-lg hover:text-indigo-400 transition-colors">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+Back to Portfolio
+</a>
+<div class="flex items-center gap-4">
+<span class="text-sm text-slate-400 hidden sm:block">Case Study</span>
+<a href="#contact" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">Hire Me</a>
+</div>
+</div>
+</div>
+</nav>
+
+<!-- Hero Section -->
+<section class="pt-32 pb-20 px-4 hero-grid relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-indigo-900/20 via-transparent to-transparent pointer-events-none"></div>
+<div class="max-w-5xl mx-auto text-center relative z-10">
+<div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full px-4 py-1.5 mb-6">
+<span class="w-2 h-2 rounded-full bg-indigo-400 pulse-dot"></span>
+<span class="text-sm font-medium text-indigo-300">Live Case Study</span>
+</div>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+Hospital Management<br><span class="gradient-text">Dashboard & Database</span>
+</h1>
+<p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+A complete end-to-end healthcare analytics solution built with <strong class="text-white">MySQL</strong>, 
+<strong class="text-white">Power BI</strong>, and advanced SQL. Featuring 15 interconnected tables, 
+450+ records, complex JOINs, views, triggers, stored procedures, and transaction management.
+</p>
+<div class="flex flex-wrap justify-center gap-3 mb-12">
+<span class="skill-tag px-3 py-1.5 rounded-full text-sm font-medium">MySQL</span>
+<span class="skill-tag px-3 py-1.5 rounded-full text-sm font-medium">Power BI</span>
+<span class="skill-tag px-3 py-1.5 rounded-full text-sm font-medium">Database Design</span>
+<span class="skill-tag px-3 py-1.5 rounded-full text-sm font-medium">SQL Joins</span>
+<span class="skill-tag px-3 py-1.5 rounded-full text-sm font-medium">Data Modeling</span>
+<span class="skill-tag px-3 py-1.5 rounded-full text-sm font-medium">ETL</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+<div class="metric-card rounded-xl p-4">
+<div class="text-2xl sm:text-3xl font-bold text-white mb-1">15</div>
+<div class="text-xs sm:text-sm text-slate-400">Database Tables</div>
+</div>
+<div class="metric-card rounded-xl p-4">
+<div class="text-2xl sm:text-3xl font-bold text-white mb-1">450+</div>
+<div class="text-xs sm:text-sm text-slate-400">Records</div>
+</div>
+<div class="metric-card rounded-xl p-4">
+<div class="text-2xl sm:text-3xl font-bold text-white mb-1">20+</div>
+<div class="text-xs sm:text-sm text-slate-400">SQL Queries</div>
+</div>
+<div class="metric-card rounded-xl p-4">
+<div class="text-2xl sm:text-3xl font-bold text-white mb-1">10</div>
+<div class="text-xs sm:text-sm text-slate-400">Departments</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Project Overview -->
+<section class="py-20 px-4">
+<div class="max-w-5xl mx-auto">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="scroll-reveal">
+<h2 class="text-3xl font-bold mb-6">Project Overview</h2>
+<p class="text-slate-400 leading-relaxed mb-6">
+Built a comprehensive <strong class="text-white">Hospital Management System</strong> from scratch 
+to solve real healthcare data challenges. The system handles patient demographics, appointments, 
+admissions, prescriptions, lab tests, billing, and staff management across 10 departments.
+</p>
+<p class="text-slate-400 leading-relaxed mb-6">
+Designed the complete database schema with proper normalization, foreign key constraints, 
+and relationships. Implemented advanced SQL features including views, triggers, stored procedures, 
+transactions with savepoints, and complex multi-table JOINs for reporting.
+</p>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<svg class="w-5 h-5 text-indigo-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+<span class="text-slate-300">Normalized schema with 15 tables and 20+ foreign keys</span>
+</div>
+<div class="flex items-start gap-3">
+<svg class="w-5 h-5 text-indigo-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+<span class="text-slate-300">Complex reporting queries with 6-table JOINs</span>
+</div>
+<div class="flex items-start gap-3">
+<svg class="w-5 h-5 text-indigo-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+<span class="text-slate-300">Transaction management with rollback savepoints</span>
+</div>
+<div class="flex items-start gap-3">
+<svg class="w-5 h-5 text-indigo-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+<span class="text-slate-300">Power BI dashboard for real-time KPI visualization</span>
+</div>
+</div>
+</div>
+<div class="scroll-reveal">
+<div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 glow-border">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-semibold text-white">Dashboard Preview</h3>
+<span class="text-xs bg-green-500/10 text-green-400 px-2 py-1 rounded-full">Live</span>
+</div>
+<div class="bg-gray-950 rounded-xl p-4 space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-400">Bed Occupancy</span>
+<span class="text-sm font-bold text-white">73%</span>
+</div>
+<div class="w-full bg-gray-800 rounded-full h-2">
+<div class="bg-indigo-500 h-2 rounded-full" style="width:73%"></div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="text-sm text-slate-400">Today's Appointments</span>
+<span class="text-sm font-bold text-white">24</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-400">Pending Bills</span>
+<span class="text-sm font-bold text-amber-400">$42,180</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm text-slate-400">Active Patients</span>
+<span class="text-sm font-bold text-white">18</span>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-3">
+<div class="bg-gray-900 rounded-lg p-2 text-center">
+<div class="text-lg font-bold text-indigo-400">10</div>
+<div class="text-xs text-slate-500">Depts</div>
+</div>
+<div class="bg-gray-900 rounded-lg p-2 text-center">
+<div class="text-lg font-bold text-emerald-400">30</div>
+<div class="text-xs text-slate-500">Doctors</div>
+</div>
+<div class="bg-gray-900 rounded-lg p-2 text-center">
+<div class="text-lg font-bold text-rose-400">30</div>
+<div class="text-xs text-slate-500">Rooms</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Database Schema -->
+<section class="py-20 px-4 bg-gray-900/50">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-12 scroll-reveal">
+<h2 class="text-3xl font-bold mb-4">Database Architecture</h2>
+<p class="text-slate-400 max-w-2xl mx-auto">15 interconnected tables with proper foreign key relationships, covering every aspect of hospital operations.</p>
+</div>
+
+<div class="scroll-reveal mb-12">
+<div class="bg-gray-950 border border-gray-800 rounded-2xl p-6 overflow-x-auto">
+<div class="min-w-[800px]">
+<div class="flex justify-center gap-4 mb-8">
+<div class="erd-box border-emerald-500 bg-emerald-500/10">PATIENT_DEMOGRAPHICS<br><span class="text-xs text-slate-400">30 records</span></div>
+</div>
+<div class="flex justify-center gap-6 mb-8">
+<div class="erd-box border-blue-500 bg-blue-500/10">DEPARTMENT<br><span class="text-xs text-slate-400">10 records</span></div>
+<div class="erd-box border-blue-500 bg-blue-500/10">STAFF<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-blue-500 bg-blue-500/10">DOCTOR<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-blue-500 bg-blue-500/10">ROOM<br><span class="text-xs text-slate-400">30 records</span></div>
+</div>
+<div class="flex justify-center gap-4 mb-8">
+<div class="erd-box border-amber-500 bg-amber-500/10">APPOINTMENT_OPT<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-amber-500 bg-amber-500/10">ADMMISION<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-amber-500 bg-amber-500/10">PRESCRIPTIONS<br><span class="text-xs text-slate-400">30 records</span></div>
+</div>
+<div class="flex justify-center gap-3 mb-8">
+<div class="erd-box border-rose-500 bg-rose-500/10 text-xs">MEDICINE<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-rose-500 bg-rose-500/10 text-xs">PRESCRIPTION_DETAILS<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-rose-500 bg-rose-500/10 text-xs">LAB_TEST<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-rose-500 bg-rose-500/10 text-xs">TEST_ORDER<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-rose-500 bg-rose-500/10 text-xs">TEST_RESULT<br><span class="text-xs text-slate-400">30 records</span></div>
+</div>
+<div class="flex justify-center gap-4">
+<div class="erd-box border-purple-500 bg-purple-500/10">BILLING_INVOICE<br><span class="text-xs text-slate-400">30 records</span></div>
+<div class="erd-box border-purple-500 bg-purple-500/10">BILLING_ITEM<br><span class="text-xs text-slate-400">30 records</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">PATIENT_DEMOGRAPHICS</h4>
+<span class="text-xs text-slate-500">Core Entity</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">Patient_ID, Name, Phone, Gender, Address, DOB, Blood_Group, Email, Join_Date</p>
+<div class="flex gap-2">
+<span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded">PK: PATIENT_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">DEPARTMENT</h4>
+<span class="text-xs text-slate-500">Reference</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">DEMP_ID, DEMP_Name, HOD, Location, Contact, Description</p>
+<div class="flex gap-2">
+<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded">PK: DEMP_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">10 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">STAFF</h4>
+<span class="text-xs text-slate-500">Reference</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">STAFF_ID, Name, Role, DEMP_ID, Qualification, Specialization, Phone, Shift, Salary</p>
+<div class="flex gap-2">
+<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded">PK: STAFF_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">DOCTOR</h4>
+<span class="text-xs text-slate-500">Reference</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">DOC_ID, STAFF_ID, DOC_Name, License, Experience, DEMP_Name, DEMP_ID</p>
+<div class="flex gap-2">
+<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded">PK: DOC_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">ROOM</h4>
+<span class="text-xs text-slate-500">Reference</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">ROOM_ID, ROOM_Type, Floor, Status, Charges_Per_Day</p>
+<div class="flex gap-2">
+<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded">PK: ROOM_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">APPOINTMENT_OPT</h4>
+<span class="text-xs text-slate-500">Transaction</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">APPT_ID, PATIENT_ID, DOC_ID, DEMP_ID, Date, Time, Reason, Status, Token</p>
+<div class="flex gap-2">
+<span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded">PK: APPT_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">ADMMISION</h4>
+<span class="text-xs text-slate-500">Transaction</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">ADMM_ID, PATIENT_ID, DOC_ID, ROOM_ID, ADMM_Date, Discharge_Date, Status</p>
+<div class="flex gap-2">
+<span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded">PK: ADMM_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">PRESCRIPTIONS</h4>
+<span class="text-xs text-slate-500">Transaction</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">PRE_ID, PATIENT_ID, DOC_ID, APPT_ID, ADMM_ID, Date, Diagnosis, Notes</p>
+<div class="flex gap-2">
+<span class="text-xs bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded">PK: PRE_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">MEDICINE</h4>
+<span class="text-xs text-slate-500">Master</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">MED_ID, MED_Name, Generic_Name, Manufacturer, Batch, Expiry, Price, Stock, Location</p>
+<div class="flex gap-2">
+<span class="text-xs bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded">PK: MED_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">PRESCRIPTION_DETAILS</h4>
+<span class="text-xs text-slate-500">Detail</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">Detail_ID, PRE_ID, MED_ID, Dosage, Frequency, Duration, Qty, Instruction</p>
+<div class="flex gap-2">
+<span class="text-xs bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded">PK: DETAIL_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">LAB_TEST</h4>
+<span class="text-xs text-slate-500">Master</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">TEST_ID, TEST_Name, Category, Cost, Description</p>
+<div class="flex gap-2">
+<span class="text-xs bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded">PK: TEST_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">TEST_ORDER</h4>
+<span class="text-xs text-slate-500">Transaction</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">ORDER_ID, PATIENT_ID, DOC_ID, TEST_ID, Date, Priority</p>
+<div class="flex gap-2">
+<span class="text-xs bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded">PK: ORDER_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">TEST_RESULT</h4>
+<span class="text-xs text-slate-500">Transaction</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">RESULT_ID, ORDER_ID, Date, Interpretation, Verified_By</p>
+<div class="flex gap-2">
+<span class="text-xs bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded">PK: RESULT_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">BILLING_INVOICE</h4>
+<span class="text-xs text-slate-500">Financial</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">INVOICE_ID, PATIENT_ID, ADMM_ID, Date, Total, Tax, Net, Status, Method</p>
+<div class="flex gap-2">
+<span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded">PK: INVOICE_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+
+<div class="table-card bg-gray-950 border border-gray-800 rounded-xl p-5 scroll-reveal">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+<svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+</div>
+<div>
+<h4 class="font-semibold text-white text-sm">BILLING_ITEM</h4>
+<span class="text-xs text-slate-500">Detail</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mb-2">ITEM_ID, INVOICE_ID, REF_ID, Description, Qty, Unit_Price, Amount</p>
+<div class="flex gap-2">
+<span class="text-xs bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded">PK: ITEM_ID</span>
+<span class="text-xs bg-gray-700 text-slate-300 px-2 py-0.5 rounded">30 rows</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SQL Queries Showcase -->
+<section class="py-20 px-4">
+<div class="max-w-5xl mx-auto">
+<div class="text-center mb-12 scroll-reveal">
+<h2 class="text-3xl font-bold mb-4">SQL Queries & Features</h2>
+<p class="text-slate-400 max-w-2xl mx-auto">Advanced SQL implementation including complex JOINs, views, triggers, stored procedures, and transaction management.</p>
+</div>
+
+<div class="flex flex-wrap gap-6 border-b border-gray-800 mb-8 justify-center scroll-reveal">
+<button class="tab-btn active pb-3 text-sm font-medium text-slate-300 hover:text-white" onclick="showTab('joins')">Complex JOINs</button>
+<button class="tab-btn pb-3 text-sm font-medium text-slate-300 hover:text-white" onclick="showTab('views')">Views</button>
+<button class="tab-btn pb-3 text-sm font-medium text-slate-300 hover:text-white" onclick="showTab('procedures')">Procedures & Triggers</button>
+<button class="tab-btn pb-3 text-sm font-medium text-slate-300 hover:text-white" onclick="showTab('transactions')">Transactions</button>
+<button class="tab-btn pb-3 text-sm font-medium text-slate-300 hover:text-white" onclick="showTab('analytics')">Analytics</button>
+</div>
+
+<div id="joins" class="tab-content active">
+<div class="code-block mb-6 scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Complete Patient History (6-Table JOIN)</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">SELECT
+    p.PATIENT_ID,
+    p.PATIENT_NAME,
+    p.PHONE_NUMBER,
+    a.APPT_ID,
+    a.APP_DATE,
+    a.STATUS AS APPOINTMENT_STATUS,
+    d.DOC_NAME,
+    d.DOC_ID,
+    dp.DEMP_NAME AS DEPARTMENT,
+    ad.ADMM_ID,
+    ad.ADMM_DATE,
+    ad.DISCHARGE_DATE,
+    r.ROOM_ID,
+    r.ROOM_TYPE,
+    r.FLOOR_NUMBER,
+    o.ORDER_ID,
+    t.TEST_NAME,
+    tr.RESULT_DATE,
+    tr.INTERPRETATION,
+    i.INVOICE_ID,
+    i.INVOICE_DATE,
+    i.TOTAL_AMT,
+    i.TAX,
+    i.NET_AMT,
+    i.PAY_STATUS
+FROM PATIENT_DEMOGRAPHICS p
+LEFT JOIN APPOINTMENT_OPT a ON p.PATIENT_ID = a.PATIENT_ID
+LEFT JOIN DOCTOR d ON a.DOC_ID = d.DOC_ID
+LEFT JOIN DEPARTMENT dp ON a.DEMP_ID = dp.DEMP_ID
+LEFT JOIN ADMMISION ad ON p.PATIENT_ID = ad.PATIENT_ID
+LEFT JOIN ROOM r ON ad.ROOM_ID = r.ROOM_ID
+LEFT JOIN TEST_ORDER o ON p.PATIENT_ID = o.PATIENT_ID
+LEFT JOIN LAB_TEST t ON o.TEST_ID = t.TEST_ID
+LEFT JOIN TEST_RESULT tr ON o.ORDER_ID = tr.ORDER_ID
+LEFT JOIN BILLING_INVOICE i ON p.PATIENT_ID = i.PATIENT_ID
+WHERE p.PATIENT_ID = 1;</code></pre>
+</div>
+
+<div class="code-block mb-6 scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Billing Details with Patient & Items</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">SELECT
+    p.PATIENT_NAME,
+    i.INVOICE_ID,
+    i.INVOICE_DATE,
+    i.TOTAL_AMT,
+    i.TAX,
+    i.NET_AMT,
+    b.ITEM_DESCRIPTION,
+    b.QUANTITY,
+    b.UNIT_PRICE,
+    b.AMT
+FROM BILLING_INVOICE i
+JOIN PATIENT_DEMOGRAPHICS p ON i.PATIENT_ID = p.PATIENT_ID
+JOIN BILLING_ITEM b ON i.INVOICE_ID = b.INVOICE_ID
+WHERE i.INVOICE_ID = 1;</code></pre>
+</div>
+
+<div class="code-block scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Department-wise Patient Count</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">SELECT
+    d.DEMP_ID,
+    d.DEMP_NAME,
+    COUNT(DISTINCT a.PATIENT_ID) AS TOTAL_PATIENTS
+FROM APPOINTMENT_OPT a
+JOIN DEPARTMENT d ON a.DEMP_ID = d.DEMP_ID
+GROUP BY d.DEMP_ID, d.DEMP_NAME;</code></pre>
+</div>
+</div>
+
+<div id="views" class="tab-content">
+<div class="code-block mb-6 scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Patient Full History View</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">CREATE VIEW PATIENT_FULL_HISTORY AS
+SELECT
+    p.PATIENT_ID,
+    p.PATIENT_NAME,
+    p.PHONE_NUMBER,
+    a.APPT_ID,
+    a.APP_DATE,
+    a.STATUS AS APPOINTMENT_STATUS,
+    d.DOC_NAME,
+    dp.DEMP_NAME AS DEPARTMENT,
+    ad.ADMM_ID,
+    ad.ADMM_DATE,
+    r.ROOM_ID,
+    r.ROOM_TYPE,
+    o.ORDER_ID,
+    t.TEST_NAME,
+    tr.RESULT_DATE,
+    tr.INTERPRETATION,
+    i.INVOICE_ID,
+    i.TOTAL_AMT,
+    i.TAX,
+    i.NET_AMT,
+    i.PAY_STATUS
+FROM PATIENT_DEMOGRAPHICS p
+LEFT JOIN APPOINTMENT_OPT a ON p.PATIENT_ID = a.PATIENT_ID
+LEFT JOIN DOCTOR d ON a.DOC_ID = d.DOC_ID
+LEFT JOIN DEPARTMENT dp ON a.DEMP_ID = dp.DEMP_ID
+LEFT JOIN ADMMISION ad ON p.PATIENT_ID = ad.PATIENT_ID
+LEFT JOIN ROOM r ON ad.ROOM_ID = r.ROOM_ID
+LEFT JOIN TEST_ORDER o ON p.PATIENT_ID = o.PATIENT_ID
+LEFT JOIN LAB_TEST t ON o.TEST_ID = t.TEST_ID
+LEFT JOIN TEST_RESULT tr ON o.ORDER_ID = tr.ORDER_ID
+LEFT JOIN BILLING_INVOICE i ON p.PATIENT_ID = i.PATIENT_ID;
+
+-- Usage
+SELECT * FROM PATIENT_FULL_HISTORY;</code></pre>
+</div>
+
+<div class="code-block scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Patient Demographics View</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">CREATE VIEW vw_PATIENT_DEMOGRAPHICS AS
+SELECT PATIENT_ID, PATIENT_NAME, GENDER
+FROM PATIENT_DEMOGRAPHICS;</code></pre>
+</div>
+</div>
+
+<div id="procedures" class="tab-content">
+<div class="code-block mb-6 scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Stored Procedure - Get All Patients</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">CREATE PROCEDURE GET_FROM_PATIENT_DEMOGRAPHICS
+AS
+BEGIN
+    SELECT * FROM PATIENT_DEMOGRAPHICS;
+END;</code></pre>
+</div>
+
+<div class="code-block scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Trigger - After Patient Insert</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">CREATE TRIGGER trg_AfterInsert
+ON PATIENT_DEMOGRAPHICS
+AFTER INSERT
+AS
+BEGIN
+    PRINT 'New Patient Added'
+END;</code></pre>
+</div>
+</div>
+
+<div id="transactions" class="tab-content">
+<div class="code-block mb-6 scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Transaction with Savepoints</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">START TRANSACTION;
+
+INSERT INTO BILLING_INVOICE (
+    PATIENT_ID, ADMM_ID, INVOICE_DATE,
+    TOTAL_AMT, TAX, NET_AMT
+) VALUES (1, 1, CURDATE(), 10000, 1000, 11000);
+
+SET @invoice_id = LAST_INSERT_ID();
+SAVEPOINT invoice_created;
+
+INSERT INTO BILLING_ITEM (
+    INVOICE_ID, REF_ID, ITEM_DESCRIPTION,
+    QUANTITY, UNIT_PRICE, AMT
+) VALUES (@invoice_id, 201, 'Room Charges', 5, 1000, 5000);
+
+SAVEPOINT room_charge_added;
+
+INSERT INTO BILLING_ITEM (
+    INVOICE_ID, REF_ID, ITEM_DESCRIPTION,
+    QUANTITY, UNIT_PRICE, AMT
+) VALUES (@invoice_id, 301, 'Lab Test Charges', 1, 3000, 3000);
+
+-- Mistake found, rollback to savepoint
+ROLLBACK TO room_charge_added;
+
+INSERT INTO BILLING_ITEM (
+    INVOICE_ID, REF_ID, ITEM_DESCRIPTION,
+    QUANTITY, UNIT_PRICE, AMT
+) VALUES (@invoice_id, 302, 'Blood Test Charges', 1, 2500, 2500);
+
+COMMIT;</code></pre>
+</div>
+
+<div class="code-block scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Rollback Example - Stock Update</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">START TRANSACTION;
+
+UPDATE MEDICINE
+SET STOCK_QTY = STOCK_QTY - 50
+WHERE MED_ID = 1;
+
+UPDATE MEDICINE
+SET STOCK_QTY = STOCK_QTY - 30
+WHERE MED_ID = 2;
+
+-- Mistake found, rollback all changes
+ROLLBACK;</code></pre>
+</div>
+</div>
+
+<div id="analytics" class="tab-content">
+<div class="code-block mb-6 scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Find Duplicate Phone Numbers</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">SELECT PHONE_NUMBER, COUNT(*) AS total_count
+FROM PATIENT_DEMOGRAPHICS
+GROUP BY PHONE_NUMBER
+HAVING COUNT(*) > 1;</code></pre>
+</div>
+
+<div class="code-block mb-6 scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Table Record Counts</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">SELECT COUNT(*) FROM PATIENT_DEMOGRAPHICS;  -- 30
+SELECT COUNT(*) FROM STAFF;                   -- 30
+SELECT COUNT(*) FROM DOCTOR;                  -- 30
+SELECT COUNT(*) FROM ROOM;                    -- 30
+SELECT COUNT(*) FROM APPOINTMENT_OPT;         -- 30
+SELECT COUNT(*) FROM ADMMISION;               -- 30
+SELECT COUNT(*) FROM MEDICINE;                -- 30
+SELECT COUNT(*) FROM PRESCRIPTIONS;           -- 30
+SELECT COUNT(*) FROM LAB_TEST;                -- 30
+SELECT COUNT(*) FROM TEST_ORDER;              -- 30
+SELECT COUNT(*) FROM TEST_RESULT;             -- 30
+SELECT COUNT(*) FROM BILLING_INVOICE;         -- 30
+SELECT COUNT(*) FROM BILLING_ITEM;            -- 30</code></pre>
+</div>
+
+<div class="code-block scroll-reveal">
+<div class="code-header">
+<div class="flex gap-2"><div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div></div>
+<span class="text-sm text-slate-400 ml-2">Temporary Table - Today's Appointments</span>
+<button class="copy-btn ml-auto text-xs text-slate-400 hover:text-white" onclick="copyCode(this)">Copy</button>
+</div>
+<pre><code class="language-sql">CREATE TEMPORARY TABLE TEMP_TODAYS_APPOINTMENTS AS
+SELECT
+    APPT_ID, PATIENT_ID, DOC_ID, DEMP_ID,
+    APP_DATE, APPT_TIME, VISITING_REASON,
+    STATUS, TOKEN_NUMBER
+FROM APPOINTMENT_OPT
+WHERE APP_DATE = '2024-01-15';
+
+-- View results
+SELECT * FROM TEMP_TODAYS_APPOINTMENTS;</code></pre>
+</div>
+</div>
+</div>
+</section>
+<!-- Workflow -->
+<section class="py-20 px-4 bg-gray-900/50">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-12 scroll-reveal">
+<h2 class="text-3xl font-bold mb-4">Project Workflow</h2>
+<p class="text-slate-400">End-to-end process from requirement analysis to dashboard deployment.</p>
+</div>
+
+<div class="space-y-8">
+<div class="workflow-step flex gap-6 scroll-reveal">
+<div class="step-number">1</div>
+<div class="pt-2">
+<h3 class="font-bold text-white text-lg mb-2">Requirement Analysis</h3>
+<p class="text-slate-400 leading-relaxed">Identified 10 hospital departments and core entities: Patients, Staff, Doctors, Rooms, Appointments, Admissions, Prescriptions, Lab Tests, and Billing. Defined relationships and data flow between all modules.</p>
+</div>
+</div>
+
+<div class="workflow-step flex gap-6 scroll-reveal">
+<div class="step-number">2</div>
+<div class="pt-2">
+<h3 class="font-bold text-white text-lg mb-2">Database Design & Normalization</h3>
+<p class="text-slate-400 leading-relaxed">Created 15 normalized tables with proper primary keys, foreign key constraints, and AUTO_INCREMENT. Designed ENUM types for status fields and DECIMAL precision for financial data. Ensured 3NF compliance.</p>
+</div>
+</div>
+
+<div class="workflow-step flex gap-6 scroll-reveal">
+<div class="step-number">3</div>
+<div class="pt-2">
+<h3 class="font-bold text-white text-lg mb-2">Data Population</h3>
+<p class="text-slate-400 leading-relaxed">Inserted 450+ realistic records across all tables with consistent foreign key references. Created diverse data covering all blood groups, departments, room types, and appointment statuses for comprehensive testing.</p>
+</div>
+</div>
+
+<div class="workflow-step flex gap-6 scroll-reveal">
+<div class="step-number">4</div>
+<div class="pt-2">
+<h3 class="font-bold text-white text-lg mb-2">Advanced SQL Implementation</h3>
+<p class="text-slate-400 leading-relaxed">Built complex 6-table JOINs for patient history reports, created views for simplified access, implemented triggers for audit logging, and designed stored procedures for reusable operations. Added transaction management with savepoints for billing integrity.</p>
+</div>
+</div>
+
+<div class="workflow-step flex gap-6 scroll-reveal">
+<div class="step-number">5</div>
+<div class="pt-2">
+<h3 class="font-bold text-white text-lg mb-2">Power BI Dashboard</h3>
+<p class="text-slate-400 leading-relaxed">Connected MySQL to Power BI via DirectQuery. Created interactive visualizations: bed occupancy gauge, department-wise patient distribution, revenue trends, appointment status breakdown, and doctor workload charts. Added slicers for date range and department filtering.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Tools & Technologies -->
+<section class="py-20 px-4">
+<div class="max-w-5xl mx-auto">
+<div class="text-center mb-12 scroll-reveal">
+<h2 class="text-3xl font-bold mb-4">Tools & Technologies</h2>
+<p class="text-slate-400">Complete tech stack used in this project.</p>
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-5 text-center table-card scroll-reveal">
+<div class="w-12 h-12 mx-auto mb-3 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+<svg class="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+</div>
+<h4 class="font-semibold text-white text-sm mb-1">MySQL</h4>
+<p class="text-xs text-slate-500">Database Engine</p>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-5 text-center table-card scroll-reveal">
+<div class="w-12 h-12 mx-auto mb-3 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+<svg class="w-6 h-6 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+</div>
+<h4 class="font-semibold text-white text-sm mb-1">Power BI</h4>
+<p class="text-xs text-slate-500">Visualization</p>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-5 text-center table-card scroll-reveal">
+<div class="w-12 h-12 mx-auto mb-3 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+<svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+</div>
+<h4 class="font-semibold text-white text-sm mb-1">MySQL Workbench</h4>
+<p class="text-xs text-slate-500">Schema Design</p>
+</div>
+
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-5 text-center table-card scroll-reveal">
+<div class="w-12 h-12 mx-auto mb-3 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+<svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+</div>
+<h4 class="font-semibold text-white text-sm mb-1">Excel</h4>
+<p class="text-xs text-slate-500">Data Prep</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Key Insights -->
+<section class="py-20 px-4 bg-gray-900/50">
+<div class="max-w-5xl mx-auto">
+<div class="text-center mb-12 scroll-reveal">
+<h2 class="text-3xl font-bold mb-4">Key Insights from Dashboard</h2>
+<p class="text-slate-400">Actionable findings derived from the data analysis.</p>
+</div>
+
+<div class="grid md:grid-cols-3 gap-6">
+<div class="bg-gray-950 border border-gray-800 rounded-xl p-6 scroll-reveal">
+<div class="w-12 h-12 rounded-lg bg-indigo-500/10 flex items-center justify-center mb-4">
+<svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+</div>
+<h3 class="font-bold text-white mb-2">73% Bed Occupancy</h3>
+<p class="text-sm text-slate-400">ICU and Private rooms show highest utilization. General wards have 40% availability suggesting potential for optimization.</p>
+</div>
+
+<div class="bg-gray-950 border border-gray-800 rounded-xl p-6 scroll-reveal">
+<div class="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4">
+<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<h3 class="font-bold text-white mb-2">$42,180 Pending Revenue</h3>
+<p class="text-sm text-slate-400">20 out of 30 invoices pending payment. Insurance claims take longest to process. Average collection period: 12 days.</p>
+</div>
+
+<div class="bg-gray-950 border border-gray-800 rounded-xl p-6 scroll-reveal">
+<div class="w-12 h-12 rounded-lg bg-rose-500/10 flex items-center justify-center mb-4">
+<svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+</div>
+<h3 class="font-bold text-white mb-2">Cardiology Top Department</h3>
+<p class="text-sm text-slate-400">Highest patient volume with 18% of total appointments. Emergency Medicine follows at 15%. Dermatology lowest at 6%.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section id="contact" class="py-20 px-4">
+<div class="max-w-3xl mx-auto text-center scroll-reveal">
+<h2 class="text-3xl font-bold mb-4">Interested in Working Together?</h2>
+<p class="text-slate-400 mb-8">I am available for freelance data analysis, SQL development, and Power BI dashboard projects.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="mailto:your-email@example.com" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-semibold transition-all hover:scale-105 inline-flex items-center justify-center gap-2">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+Hire Me for Your Project
+</a>
+<a href="index2.html" class="bg-gray-900 border border-gray-800 hover:border-indigo-500 text-white px-8 py-3 rounded-xl font-semibold transition-all inline-flex items-center justify-center gap-2">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+Back to Portfolio
+</a>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="py-8 px-4 border-t border-gray-800">
+<div class="max-w-5xl mx-auto text-center text-slate-500 text-sm">
+<p>Built with MySQL, Power BI, and passion for data. Part of my Data Analytics Portfolio.</p>
+</div>
+</footer>
+
+<script>
+// Syntax highlighting
+hljs.highlightAll();
+
+// Tab switching
+function showTab(tabId){
+    document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// Copy code
+function copyCode(btn){
+    const code=btn.closest('.code-block').querySelector('code').textContent;
+    navigator.clipboard.writeText(code).then(()=>{
+        btn.textContent='Copied!';
+        setTimeout(()=>btn.textContent='Copy',2000);
+    });
+}
+
+// Scroll reveal
+const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('active');
+        }
+    });
+},{threshold:0.1});
+
+document.querySelectorAll('.scroll-reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

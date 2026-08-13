@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Containerized AI Environment — Case Study | Kishan Kumar Apat</title>
+<meta name="description" content="Case study of a containerized Python environment for running ML models using Docker, built by combining Docker workshop and AI course learnings.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { 
+        display: ['Space Grotesk', 'sans-serif'], 
+        body: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace']
+      },
+      colors: { 
+        primary: '#6366f1',
+        secondary: '#8b5cf6',
+        accent: '#ec4899',
+        dark: '#0a0a0a',
+        'dark-lighter': '#141414',
+        'dark-card': '#1a1a1a',
+        'dark-border': '#2a2a2a'
+      }
+    }
+  }
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#e5e5e5;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#6366f1,#8b5cf6);border-radius:99px}
+::selection{background:rgba(99,102,241,0.3);color:#fff}
+
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99,102,241,0.3);
+  box-shadow: 0 25px 50px -12px rgba(99,102,241,0.15);
+}
+.code-block {
+  background: #0f0f0f;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.tag-docker { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+.tag-python { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+.tag-ai { background: rgba(236,72,153,0.15); color: #f472b6; border: 1px solid rgba(236,72,153,0.2); }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- Navigation -->
+<header class="fixed inset-x-0 top-0 z-50 bg-dark/90 backdrop-blur-xl border-b border-white/5">
+  <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-display font-bold text-xl tracking-tight">
+      <span class="text-white">KISHAN</span><span class="gradient-text">.data</span>
+    </a>
+    <a href="index.html#projects" class="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      Back to Portfolio
+    </a>
+  </nav>
+</header>
+
+<main class="pt-24 pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-sm text-slate-500 mb-8">
+      <a href="index.html" class="hover:text-indigo-400 transition-colors">Home</a>
+      <span>/</span>
+      <a href="index.html#projects" class="hover:text-indigo-400 transition-colors">Projects</a>
+      <span>/</span>
+      <span class="text-slate-300">Containerized AI Environment</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="mb-12">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="tag tag-docker"><i class="fab fa-docker"></i>Docker</span>
+        <span class="tag tag-python"><i class="fab fa-python"></i>Python</span>
+        <span class="tag tag-ai"><i class="fas fa-brain"></i>AI/ML</span>
+      </div>
+      <h1 class="font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-4">
+        Containerized <span class="gradient-text">AI Environment</span>
+      </h1>
+      <p class="text-lg text-slate-400 leading-relaxed max-w-2xl">
+        A reproducible Docker container setup for running Python-based machine learning models, combining knowledge from both the Docker workshop and Introduction to AI course.
+      </p>
+    </div>
+
+    <!-- Architecture Diagram -->
+    <div class="rounded-2xl p-8 bg-dark-card border border-white/10 mb-12">
+      <h3 class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-6">System Architecture</h3>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mx-auto mb-2">
+            <i class="fab fa-docker text-blue-400 text-2xl"></i>
+          </div>
+          <p class="text-xs text-slate-400">Docker Engine</p>
+        </div>
+        <div class="hidden md:block text-slate-600">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto mb-2">
+            <i class="fab fa-python text-amber-400 text-2xl"></i>
+          </div>
+          <p class="text-xs text-slate-400">Python 3.9</p>
+        </div>
+        <div class="hidden md:block text-slate-600">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center mx-auto mb-2">
+            <i class="fas fa-brain text-pink-400 text-2xl"></i>
+          </div>
+          <p class="text-xs text-slate-400">ML Models</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overview Grid -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <div class="card-hover rounded-2xl p-6 bg-dark-card">
+        <i class="fas fa-box text-blue-400 mb-3"></i>
+        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Container</p>
+        <p class="text-white font-medium">Docker + Python</p>
+        <p class="text-xs text-slate-500 mt-1">Alpine Linux base</p>
+      </div>
+      <div class="card-hover rounded-2xl p-6 bg-dark-card">
+        <i class="fas fa-cogs text-amber-400 mb-3"></i>
+        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">ML Stack</p>
+        <p class="text-white font-medium">scikit-learn, pandas</p>
+        <p class="text-xs text-slate-500 mt-1">NumPy, Matplotlib</p>
+      </div>
+      <div class="card-hover rounded-2xl p-6 bg-dark-card">
+        <i class="fas fa-sync text-emerald-400 mb-3"></i>
+        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Reproducibility</p>
+        <p class="text-white font-medium">100% Reproducible</p>
+        <p class="text-xs text-slate-500 mt-1">Same env everywhere</p>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">The Problem</h2>
+      <p class="text-slate-400 leading-relaxed mb-4">
+        After completing both the Docker workshop and Introduction to AI course, I noticed a common pain point in ML development: <strong class="text-white">"It works on my machine"</strong> syndrome. Different Python versions, missing dependencies, and conflicting libraries make sharing ML projects nearly impossible.
+      </p>
+      <p class="text-slate-400 leading-relaxed">
+        I wanted to create a standardized, reproducible environment where anyone could pull my project and run the ML models without any setup friction.
+      </p>
+    </section>
+
+    <!-- Solution: Dockerfile -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">The Solution</h2>
+      
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-sm">1</span>
+          Dockerfile
+        </h3>
+        <div class="code-block mb-4">
+<pre><code style="color: #6b7280;"># Use official Python image</code>
+<code style="color: #c084fc;">FROM</code> <code style="color: #34d399;">python:3.9-slim</code>
+
+<code style="color: #6b7280;"># Set working directory</code>
+<code style="color: #f472b6;">WORKDIR</code> <code style="color: #34d399;">/app</code>
+
+<code style="color: #6b7280;"># Install system dependencies</code>
+<code style="color: #f472b6;">RUN</code> <code style="color: #f472b6;">apt-get update</code> && <code style="color: #f472b6;">apt-get install</code> -y \
+    gcc \
+    && <code style="color: #f472b6;">rm</code> -rf /var/lib/apt/lists/*
+
+<code style="color: #6b7280;"># Copy requirements first (layer caching)</code>
+<code style="color: #f472b6;">COPY</code> <code style="color: #34d399;">requirements.txt</code> .
+
+<code style="color: #6b7280;"># Install Python packages</code>
+<code style="color: #f472b6;">RUN</code> <code style="color: #f472b6;">pip install</code> --no-cache-dir -r requirements.txt
+
+<code style="color: #6b7280;"># Copy project files</code>
+<code style="color: #f472b6;">COPY</code> <code style="color: #34d399;">. .</code>
+
+<code style="color: #6b7280;"># Expose port for Jupyter</code>
+<code style="color: #f472b6;">EXPOSE</code> <code style="color: #fbbf24;">8888</code>
+
+<code style="color: #6b7280;"># Run the ML script</code>
+<code style="color: #f472b6;">CMD</code> [<code style="color: #34d399;">"python"</code>, <code style="color: #34d399;">"model.py"</code>]</code></pre>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-sm">2</span>
+          requirements.txt
+        </h3>
+        <div class="code-block">
+<pre><code style="color: #f472b6;">numpy</code>==<code style="color: #fbbf24;">1.24.3</code>
+<code style="color: #f472b6;">pandas</code>==<code style="color: #fbbf24;">2.0.3</code>
+<code style="color: #f472b6;">scikit-learn</code>==<code style="color: #fbbf24;">1.3.0</code>
+<code style="color: #f472b6;">matplotlib</code>==<code style="color: #fbbf24;">3.7.2</code>
+<code style="color: #f472b6;">seaborn</code>==<code style="color: #fbbf24;">0.12.2</code>
+<code style="color: #f472b6;">jupyter</code>==<code style="color: #fbbf24;">1.0.0</code></code></pre>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-sm">3</span>
+          ML Model Script (model.py)
+        </h3>
+        <div class="code-block">
+<pre><code style="color: #c084fc;">import</code> <code style="color: #f472b6;">pandas</code> <code style="color: #c084fc;">as</code> pd
+<code style="color: #c084fc;">from</code> <code style="color: #f472b6;">sklearn.model_selection</code> <code style="color: #c084fc;">import</code> train_test_split
+<code style="color: #c084fc;">from</code> <code style="color: #f472b6;">sklearn.ensemble</code> <code style="color: #c084fc;">import</code> RandomForestClassifier
+<code style="color: #c084fc;">from</code> <code style="color: #f472b6;">sklearn.metrics</code> <code style="color: #c084fc;">import</code> accuracy_score
+
+<code style="color: #6b7280;"># Load dataset</code>
+data = pd.<code style="color: #f472b6;">read_csv</code>(<code style="color: #34d399;">'data.csv'</code>)
+X = data.<code style="color: #f472b6;">drop</code>(<code style="color: #34d399;">'target'</code>, axis=<code style="color: #fbbf24;">1</code>)
+y = data[<code style="color: #34d399;">'target'</code>]
+
+<code style="color: #6b7280;"># Split and train</code>
+X_train, X_test, y_train, y_test = <code style="color: #f472b6;">train_test_split</code>(X, y, test_size=<code style="color: #fbbf24;">0.2</code>)
+model = <code style="color: #f472b6;">RandomForestClassifier</code>(n_estimators=<code style="color: #fbbf24;">100</code>)
+model.<code style="color: #f472b6;">fit</code>(X_train, y_train)
+
+<code style="color: #6b7280;"># Evaluate</code>
+predictions = model.<code style="color: #f472b6;">predict</code>(X_test)
+accuracy = <code style="color: #f472b6;">accuracy_score</code>(y_test, predictions)
+<code style="color: #f472b6;">print</code>(<code style="color: #34d399;">f"Model Accuracy: {accuracy:.2f}"</code>)</code></pre>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 text-sm">4</span>
+          Docker Commands Used
+        </h3>
+        <div class="code-block">
+<pre><code style="color: #6b7280;"># Build the image</code>
+<code style="color: #f472b6;">docker build</code> -t ml-environment .
+
+<code style="color: #6b7280;"># Run container with volume mount</code>
+<code style="color: #f472b6;">docker run</code> -v $(<code style="color: #f472b6;">pwd</code>)/data:/app/data -p <code style="color: #fbbf24;">8888</code>:<code style="color: #fbbf24;">8888</code> ml-environment
+
+<code style="color: #6b7280;"># Run Jupyter notebook inside container</code>
+<code style="color: #f472b6;">docker run</code> -p <code style="color: #fbbf24;">8888</code>:<code style="color: #fbbf24;">8888</code> ml-environment <code style="color: #f472b6;">jupyter notebook</code> --ip=<code style="color: #fbbf24;">0.0.0.0</code> --allow-root
+
+<code style="color: #6b7280;"># Push to Docker Hub</code>
+<code style="color: #f472b6;">docker tag</code> ml-environment username/ml-environment:latest
+<code style="color: #f472b6;">docker push</code> username/ml-environment:latest</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">Key Features</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-layer-group text-blue-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Layer Caching</h4>
+          <p class="text-sm text-slate-400">Requirements copied before source code for efficient Docker layer caching</p>
+        </div>
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-hdd text-purple-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Volume Mounting</h4>
+          <p class="text-sm text-slate-400">Data directory mounted as volume for persistent storage without rebuilding</p>
+        </div>
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-shield-alt text-emerald-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Slim Base Image</h4>
+          <p class="text-sm text-slate-400">python:3.9-slim reduces image size by ~60% compared to full image</p>
+        </div>
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-book text-amber-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Jupyter Integration</h4>
+          <p class="text-sm text-slate-400">Exposed port 8888 for interactive notebook development inside container</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What I Learned -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">What I Learned</h2>
+      <div class="rounded-2xl p-6 bg-gradient-to-br from-blue-500/5 to-purple-500/5 border border-blue-500/10">
+        <ul class="space-y-3 text-slate-300">
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>Containerization Principles:</strong> Understanding images vs containers, layers, and the importance of minimal base images</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>Dependency Management:</strong> Pinning exact versions in requirements.txt ensures reproducibility across environments</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>Dev/Prod Parity:</strong> Docker ensures the development environment matches production exactly</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>AI Model Deployment:</strong> Containerized ML models can be easily shared and deployed to cloud platforms</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Future Improvements -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">Future Improvements</h2>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-dark-card border border-white/5">
+          <i class="fas fa-arrow-right text-indigo-400 mt-1"></i>
+          <div>
+            <p class="text-white font-medium">Docker Compose</p>
+            <p class="text-sm text-slate-400">Add multi-container setup with separate services for model training, API, and database</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-dark-card border border-white/5">
+          <i class="fas fa-arrow-right text-indigo-400 mt-1"></i>
+          <div>
+            <p class="text-white font-medium">CI/CD Pipeline</p>
+            <p class="text-sm text-slate-400">Automated building and testing with GitHub Actions on every push</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 rounded-xl bg-dark-card border border-white/5">
+          <i class="fas fa-arrow-right text-indigo-400 mt-1"></i>
+          <div>
+            <p class="text-white font-medium">Cloud Deployment</p>
+            <p class="text-sm text-slate-400">Deploy container to AWS ECS or Google Cloud Run for scalable inference</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="flex flex-wrap gap-4 pt-8 border-t border-white/5">
+      <a href="https://github.com/kishan-apat" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all">
+        <i class="fab fa-github"></i>
+        View on GitHub
+      </a>
+      <a href="index.html#projects" class="inline-flex items-center gap-2 border border-white/10 text-slate-300 font-medium px-6 py-3 rounded-full hover:bg-white/5 transition-all">
+        <i class="fas fa-arrow-left"></i>
+        Back to Projects
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-white/5">
+  <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-slate-500">© 2026 Kishan Kumar Apat</p>
+    <a href="index.html" class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors">← Back to Portfolio</a>
+  </div>
+</footer>
+
+</body>
+</html>

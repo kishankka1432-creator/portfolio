@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Kishan Kumar Apat — Data Analyst specializing in SQL, Excel, Power BI, and data visualization.">
+<title>Kishan Kumar Apat — Data Analyst</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { 
+        display: ['Space Grotesk', 'sans-serif'], 
+        body: ['Inter', 'sans-serif'] 
+      },
+      colors: { 
+        primary: '#6366f1',
+        secondary: '#8b5cf6',
+        accent: '#ec4899',
+        dark: '#0a0a0a',
+        'dark-lighter': '#141414',
+        'dark-card': '#1a1a1a',
+        'dark-border': '#2a2a2a'
+      }
+    }
+  }
+}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#e5e5e5;overflow-x:hidden}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#6366f1,#8b5cf6);border-radius:99px}
+
+/* Selection */
+::selection{background:rgba(99,102,241,0.3);color:#fff}
+
+/* Noise Overlay */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ========== TYPEWRITER EFFECT ========== */
+.typewriter-container {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.2em;
+}
+.typewriter-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  background: linear-gradient(135deg, #818cf8, #c084fc, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: linear-gradient(180deg, #818cf8, #c084fc);
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ========== REVEAL ANIMATIONS ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-1 { transition-delay: 0.1s }
+.stagger-2 { transition-delay: 0.2s }
+.stagger-3 { transition-delay: 0.3s }
+.stagger-4 { transition-delay: 0.4s }
+.stagger-5 { transition-delay: 0.5s }
+
+/* ========== GRADIENT TEXT ========== */
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========== GLOW EFFECTS ========== */
+.glow {
+  box-shadow: 0 0 40px -10px rgba(99,102,241,0.4);
+}
+.glow-strong {
+  box-shadow: 0 0 60px -15px rgba(99,102,241,0.6);
+}
+
+/* ========== CARD HOVER ========== */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  border-color: rgba(99,102,241,0.3);
+  box-shadow: 0 25px 50px -12px rgba(99,102,241,0.15);
+}
+
+/* ========== IMAGE ZOOM ========== */
+.img-zoom {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group:hover .img-zoom {
+  transform: scale(1.08);
+}
+
+/* ========== SHIMMER BUTTON ========== */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s;
+}
+.shimmer-btn:hover::after {
+  left: 150%;
+}
+
+/* ========== NAV LINK ========== */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+/* ========== FLOATING ANIMATION ========== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+.float-anim {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ========== PULSE GLOW ========== */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+.pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* ========== MARQUEE ========== */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ========== SKILL TAG ========== */
+.skill-tag {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(99,102,241,0.15);
+}
+.skill-tag:hover {
+  border-color: rgba(99,102,241,0.5);
+  background: rgba(99,102,241,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99,102,241,0.15);
+}
+
+/* ========== TIMELINE ========== */
+.timeline-dot {
+  position: relative;
+}
+.timeline-dot::before {
+  content: '';
+  position: absolute;
+  left: -33px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border: 3px solid #0a0a0a;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.3);
+}
+
+/* ========== PROGRESS BAR ========== */
+.progress-bar {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ========== MAGNETIC BUTTON ========== */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ========== GRADIENT BORDER ========== */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  z-index: -1;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ========== BACKGROUND ORBS ========== */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+/* ========== SMOOTH SCROLL ========== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========== HERO TYPING AREA ========== */
+.hero-typing {
+  min-height: 1.4em;
+}
+
+/* ========== SECTION DIVIDER ========== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
+}
+
+/* ========== COUNTER ========== */
+.counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ========== HIDE SCROLLBAR HORIZONTAL ========== */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>
+</head>
+
+<body class="antialiased">
+
+<!-- ═══ BACKGROUND ORBS ═══ -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+  <div class="bg-orb w-96 h-96 bg-indigo-500/8 top-0 left-1/4 pulse-glow"></div>
+  <div class="bg-orb w-80 h-80 bg-purple-500/8 bottom-1/4 right-1/4 pulse-glow" style="animation-delay: 2s"></div>
+  <div class="bg-orb w-[500px] h-[500px] bg-pink-500/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+</div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<header id="navbar" class="fixed inset-x-0 top-0 z-50 transition-all duration-500">
+  <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    
+    <a href="#hero" class="font-display font-bold text-xl tracking-tight relative z-10 group">
+      <span class="text-white">KISHAN</span><span class="gradient-text">.data</span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium" role="list">
+      <li><a href="#about" class="nav-link text-slate-400 hover:text-white transition-colors">About</a></li>
+      <li><a href="#education" class="nav-link text-slate-400 hover:text-white transition-colors">Education</a></li>
+      <li><a href="#projects" class="nav-link text-slate-400 hover:text-white transition-colors">Projects</a></li>
+      <li><a href="#experience" class="nav-link text-slate-400 hover:text-white transition-colors">Experience</a></li>
+      <li><a href="#certificates" class="nav-link text-slate-400 hover:text-white transition-colors">Certificates</a></li>
+      <li><a href="#skills" class="nav-link text-slate-400 hover:text-white transition-colors">Skills</a></li>
+      <li><a href="#blog" class="nav-link text-slate-400 hover:text-white transition-colors">Blog</a></li>
+      <li><a href="#contact" class="nav-link text-slate-400 hover:text-white transition-colors">Contact</a></li>
+    </ul>
+
+    <div class="flex items-center gap-4">
+      <a href="#contact" class="hidden md:inline-flex shimmer-btn items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all glow">
+        Hire Me
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      
+      <button id="mobileMenuBtn" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 bg-white/5">
+        <svg id="menuIcon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="closeIcon" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-dark/95 backdrop-blur-xl border-t border-white/5">
+    <ul class="flex flex-col px-6 py-8 gap-4 text-sm font-medium">
+      <li><a href="#about" class="block text-slate-300 hover:text-white transition-colors py-2">About</a></li>
+      <li><a href="#education" class="block text-slate-300 hover:text-white transition-colors py-2">Education</a></li>
+      <li><a href="#projects" class="block text-slate-300 hover:text-white transition-colors py-2">Projects</a></li>
+      <li><a href="#experience" class="block text-slate-300 hover:text-white transition-colors py-2">Experience</a></li>
+      <li><a href="#certificates" class="block text-slate-300 hover:text-white transition-colors py-2">Certificates</a></li>
+      <li><a href="#skills" class="block text-slate-300 hover:text-white transition-colors py-2">Skills</a></li>
+      <li><a href="#blog" class="block text-slate-300 hover:text-white transition-colors py-2">Blog</a></li>
+      <li><a href="#contact" class="block text-slate-300 hover:text-white transition-colors py-2">Contact</a></li>
+      <li class="pt-4 border-t border-white/5">
+        <a href="#contact" class="inline-flex shimmer-btn bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold px-6 py-2.5 rounded-full">Hire Me →</a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main class="relative z-10">
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 py-20 w-full">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      
+      <div class="order-2 lg:order-1">
+        <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Available for opportunities
+        </div>
+        
+        <h1 class="reveal stagger-1 font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white mb-4">
+          Hi, I'm <span class="gradient-text">Kishan</span>
+        </h1>
+        
+        <div class="reveal stagger-2 hero-typing mb-6">
+          <span class="text-2xl md:text-3xl font-display text-slate-400">I am a </span>
+          <span class="typewriter-container">
+            <span id="typewriter" class="typewriter-text text-2xl md:text-3xl"></span>
+            <span class="typewriter-cursor"></span>
+          </span>
+        </div>
+        
+        <p class="reveal stagger-3 text-lg text-slate-400 font-light leading-relaxed max-w-lg mb-8">
+          Second-year student passionate about <span class="text-slate-200 font-medium">data analysis, visualization, and emerging tech</span>. Building skills in SQL, Power BI, and Excel through hands-on projects.
+        </p>
+        
+        <div class="reveal stagger-4 flex flex-wrap gap-4 mb-12">
+          <a href="#projects" class="shimmer-btn magnetic-btn inline-flex items-center gap-2 bg-white text-dark font-semibold px-7 py-3.5 rounded-full hover:bg-slate-100 transition-all text-sm">
+            View Projects
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </a>
+          <a href="#contact" class="magnetic-btn inline-flex items-center gap-2 border border-white/20 text-white font-medium px-7 py-3.5 rounded-full hover:bg-white/5 transition-all text-sm">
+            Get in Touch
+          </a>
+          <a href="Kishan-Kumar-Apat-Resume.pdf" download class="magnetic-btn inline-flex items-center gap-2 border border-indigo-500/30 text-indigo-300 font-medium px-7 py-3.5 rounded-full hover:bg-indigo-500/10 transition-all text-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Resume
+          </a>
+        </div>
+        
+        <div class="reveal stagger-5 flex gap-10">
+          <div>
+            <p class="counter font-display font-bold text-3xl text-white" data-target="3">0+</p>
+            <p class="text-xs text-slate-500 mt-1 uppercase tracking-wider">Dashboards</p>
+          </div>
+          <div>
+            <p class="counter font-display font-bold text-3xl text-white" data-target="5">0+</p>
+            <p class="text-xs text-slate-500 mt-1 uppercase tracking-wider">Workshops</p>
+          </div>
+          <div>
+            <p class="counter font-display font-bold text-3xl text-white" data-target="2">0+</p>
+            <p class="text-xs text-slate-500 mt-1 uppercase tracking-wider">Competitions</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal stagger-2 order-1 lg:order-2 flex justify-center">
+        <div class="relative w-80 h-80 md:w-96 md:h-96 float-anim">
+          <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+          <div class="relative w-full h-full rounded-3xl overflow-hidden gradient-border glow-strong">
+            <img src="profile (2).jpeg" alt="Kishan Kumar Apat" class="w-full h-full object-cover" loading="eager">
+          </div>
+          <div class="absolute -bottom-4 -right-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-display font-bold text-sm px-5 py-3 rounded-2xl shadow-xl">
+            <i class="fas fa-circle text-emerald-400 text-xs mr-2 animate-pulse"></i>Open to work
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+    <span class="text-xs text-slate-600">Scroll</span>
+    <svg class="w-5 h-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      
+      <div class="reveal">
+        <div class="relative group">
+          <div class="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="relative rounded-3xl overflow-hidden border border-white/10">
+            <img src="profile (2).jpeg" alt="About Kishan" class="w-full aspect-square object-cover" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">About Me</p>
+        <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-6">
+          Turning Data Into <span class="gradient-text">Decisions</span>
+        </h2>
+        <p class="reveal stagger-2 text-slate-400 leading-relaxed mb-4">
+          I'm Kishan Kumar Apat, Second-year student passionate about data analysis and visualization. I'm building foundational skills in SQL, Power BI, and Excel through hands-on projects, workshops, and competitive events.
+        </p>
+        <p class="reveal stagger-3 text-slate-400 leading-relaxed mb-8">
+          I believe good data analysis isn't just about numbers — it's about making complex information so clear that anyone can act on it. When I'm not querying databases or building dashboards, I'm exploring new tech workshops, competing in coding challenges, or experimenting with game development.
+        </p>
+        
+        <div class="reveal stagger-4">
+          <p class="text-xs font-medium text-slate-500 uppercase tracking-[0.2em] mb-4">Tech Stack</p>
+          <div class="flex flex-wrap gap-2" role="list">
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">SQL</span>
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">Power BI</span>
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">Excel / VBA</span>
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">Python</span>
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">C#</span>
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">Unity</span>
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">Docker</span>
+            <span class="skill-tag text-sm bg-dark-card text-slate-300 px-4 py-2 rounded-full cursor-default">Data Visualization</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">Academic Journey</p>
+      <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white">Education</h2>
+    </div>
+
+    <div class="relative max-w-3xl">
+      <!-- Timeline line -->
+      <div class="absolute left-[11px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-indigo-500/50 via-purple-500/30 to-transparent"></div>
+      
+      <!-- Education Item 1 -->
+      <div class="reveal stagger-1 relative pl-12 pb-12">
+        <div class="timeline-dot">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+            <h3 class="font-display font-bold text-xl text-white">Bachelor of Technology (BTech)</h3>
+            <span class="text-xs text-indigo-400 font-medium bg-indigo-500/10 px-3 py-1 rounded-full mt-2 sm:mt-0">2025 — 2029</span>
+          </div>
+          <p class="text-slate-300 font-medium mb-1">National Institute of Science and Technology (NIST)</p>
+          <p class="text-slate-500 text-sm mb-3">Computer Science & Engineering with Specialization in Data science</p>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Second-year student focusing on programming fundamentals, data structures, database management systems, and software engineering principles. Active participant in technical workshops and coding competitions.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="text-xs bg-dark-card border border-white/5 text-slate-400 px-3 py-1 rounded-full">Programming</span>
+            <span class="text-xs bg-dark-card border border-white/5 text-slate-400 px-3 py-1 rounded-full">Data Structures</span>
+            <span class="text-xs bg-dark-card border border-white/5 text-slate-400 px-3 py-1 rounded-full">DBMS</span>
+            <span class="text-xs bg-dark-card border border-white/5 text-slate-400 px-3 py-1 rounded-full">Software Engineering</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education Item 2 -->
+      <div class="reveal stagger-2 relative pl-12 pb-12">
+        <div class="timeline-dot">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+            <h3 class="font-display font-bold text-xl text-white">Higher Secondary Education (12th)</h3>
+            <span class="text-xs text-indigo-400 font-medium bg-indigo-500/10 px-3 py-1 rounded-full mt-2 sm:mt-0">Completed</span>
+          </div>
+          <p class="text-slate-300 font-medium mb-1">DE PAUL SCHOOL</p>
+          <p class="text-slate-500 text-sm mb-3">Science Stream — Physics, Chemistry, Mathematics, Biology</p>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Built strong foundation in mathematics and analytical thinking. Developed early interest in programming and technology through computer science coursework.
+          </p>
+        </div>
+      </div>
+
+      <!-- Education Item 3 -->
+      <div class="reveal stagger-3 relative pl-12">
+        <div class="timeline-dot">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+            <h3 class="font-display font-bold text-xl text-white">Secondary Education (10th)</h3>
+            <span class="text-xs text-indigo-400 font-medium bg-indigo-500/10 px-3 py-1 rounded-full mt-2 sm:mt-0">Completed</span>
+          </div>
+          <p class="text-slate-300 font-medium mb-1">DE PAUL SCHOOL</p>
+          <p class="text-slate-500 text-sm mb-3">General Education</p>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Achieved excellent academic standing with strong performance in mathematics and science subjects.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+      <div>
+        <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">Portfolio</p>
+        <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white">Featured Projects</h2>
+      </div>
+      <a href="#" class="reveal text-sm text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-1">
+        View all <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      
+      <!-- Featured Project -->
+      <article class="card-hover reveal stagger-1 group rounded-2xl overflow-hidden bg-dark-card md:col-span-2">
+        <div class="grid md:grid-cols-2">
+          <div class="relative h-64 md:h-auto overflow-hidden">
+            <img src="project-hospital-dashboard.png" alt="Hospital Dashboard" class="img-zoom w-full h-full object-cover" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/50 to-transparent md:bg-gradient-to-l"></div>
+            <div class="absolute top-4 left-4">
+              <span class="text-xs bg-indigo-500 text-white px-3 py-1 rounded-full font-medium">Featured</span>
+            </div>
+          </div>
+          <div class="p-8 md:p-10 flex flex-col justify-center">
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-3 py-1 rounded-full">Power BI</span>
+              <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">SQL</span>
+              <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">Excel</span>
+            </div>
+            <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-indigo-300 transition-colors">Hospital Management Dashboard</h3>
+            <p class="text-sm text-slate-400 leading-relaxed mb-6">
+              Interactive Power BI dashboard for hospital operations analysis. Features patient admission trends, bed occupancy rates by department, doctor workload distribution, and dynamic date filtering with DAX calculations.
+            </p>
+            <div class="flex gap-4">
+              <a href="project-hospital-dashboard.html" class="shimmer-btn inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm font-medium px-5 py-2.5 rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all">
+                View Case Study
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+              <a href="#" class="inline-flex items-center gap-2 border border-white/10 text-slate-300 text-sm font-medium px-5 py-2.5 rounded-full hover:bg-white/5 transition-all">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+     <article class="card-hover reveal stagger-3 group rounded-2xl overflow-hidden bg-dark-card">
+  <div class="relative overflow-hidden">
+    <div class="video-container">
+      <video controls poster="project-unity-game.png" preload="metadata" class="w-full">
+        <source src="game-video.mp4" type="video/mp4">
+        <p class="text-slate-400 text-center py-8">Your browser does not support video. 
+          <a href="game-video.mp4" download class="text-indigo-400">Download</a>
+        </p>
+      </video>
+    </div>
+  </div>
+  <div class="p-6">
+    <div class="flex flex-wrap gap-2 mb-3">
+      <span class="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-3 py-1 rounded-full">Unity</span>
+      <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">C#</span>
+      <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">Game Dev</span>
+    </div>
+    <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-indigo-300 transition-colors">2D Platformer Game</h3>
+    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+      Built a functional 2D platformer during a Multimedia Game Development workshop using Unity and C#. Implemented player movement, collision detection, and level design. <span class="text-indigo-400">Watch the gameplay video above!</span>
+    </p>
+    <a href="project-unity-game.html" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+      View case study →
+    </a>
+  </div>
+</article>
+
+      <!-- Project 3 -->
+      <article class="card-hover reveal stagger-3 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-56 overflow-hidden">
+          <img src="project-docker-ai.png" alt="Docker AI" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-3 py-1 rounded-full">Docker</span>
+            <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">AI</span>
+            <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">Python</span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-indigo-300 transition-colors">Containerized AI Environment</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">
+            Combined Docker workshop and AI course learnings to build a containerized Python environment for running ML models with reproducible workflows.
+          </p>
+          <a href="project-docker-ai.html" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">
+            View case study →
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">Beyond the Classroom</p>
+      <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white">Workshops & Competitions</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      
+      <article class="card-hover reveal stagger-1 group rounded-2xl p-8 bg-dark-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <span class="text-xs text-slate-500 font-medium bg-dark-lighter px-3 py-1 rounded-full">2026</span>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-2">ICADS-26 — International Conference</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-3">Attended the International Conference on Air Defence and Security, gaining exposure to defense technology and data-driven security systems.</p>
+        <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">Conference</span>
+      </article>
+
+      <article class="card-hover reveal stagger-2 group rounded-2xl p-8 bg-dark-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <span class="text-xs text-slate-500 font-medium bg-dark-lighter px-3 py-1 rounded-full">2026</span>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-2">Code Sangam — HackerRank</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-3">Participated in competitive coding event. Solved algorithmic challenges under time pressure, strengthening problem-solving skills.</p>
+        <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">Competition</span>
+      </article>
+
+      <article class="card-hover reveal stagger-3 group rounded-2xl p-8 bg-dark-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <span class="text-xs text-slate-500 font-medium bg-dark-lighter px-3 py-1 rounded-full">2026</span>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-2">Multimedia Game Dev Workshop</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-3">Hands-on Unity workshop covering C# scripting and game design. Built a complete 2D game from scratch.</p>
+        <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">Workshop</span>
+      </article>
+
+      <article class="card-hover reveal stagger-4 group rounded-2xl p-8 bg-dark-card">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 flex items-center justify-center bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <span class="text-xs text-slate-500 font-medium bg-dark-lighter px-3 py-1 rounded-full">2026</span>
+        </div>
+        <h3 class="font-display font-bold text-xl text-white mb-2">Docker Workshop</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-3">Learned containerization fundamentals — building images, managing containers, and creating reproducible environments.</p>
+        <span class="text-xs bg-dark-lighter text-slate-400 px-3 py-1 rounded-full">Workshop</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ CERTIFICATES ═══ -->
+<section id="certificates" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">Credentials</p>
+      <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white">Certificates</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <article class="card-hover reveal stagger-1 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-48 overflow-hidden">
+          <img src="certificate-game-dev.jpeg" alt="Game Dev Certificate" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-full">Workshop</span>
+            <span class="text-xs text-slate-500">2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Multimedia Game Development</h3>
+          <p class="text-sm text-slate-400">Unity fundamentals, C# scripting, and 2D game design.</p>
+        </div>
+      </article>
+
+      <article class="card-hover reveal stagger-2 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-48 overflow-hidden">
+          <img src="certificate-docker.jpeg" alt="Docker Certificate" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-full">Workshop</span>
+            <span class="text-xs text-slate-500">2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Docker Fundamentals</h3>
+          <p class="text-sm text-slate-400">Containerization, image building, and orchestration.</p>
+        </div>
+      </article>
+
+      <article class="card-hover reveal stagger-3 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-48 overflow-hidden">
+          <img src="certificate-ai.jpeg" alt="AI Certificate" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-full">Course</span>
+            <span class="text-xs text-slate-500">2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Introduction to AI</h3>
+          <p class="text-sm text-slate-400">Machine learning concepts and neural networks.</p>
+        </div>
+      </article>
+
+      <article class="card-hover reveal stagger-1 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-48 overflow-hidden">
+          <img src="certificate-icads.jpeg" alt="ICADS Certificate" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-full">Conference</span>
+            <span class="text-xs text-slate-500">2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">ICADS-26 Participant</h3>
+          <p class="text-sm text-slate-400">International Conference on Air Defence and Security.</p>
+        </div>
+      </article>
+
+      <article class="card-hover reveal stagger-2 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-48 overflow-hidden">
+          <img src="certificate-code-sangam.jpeg" alt="Code Sangam Certificate" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-full">Competition</span>
+            <span class="text-xs text-slate-500">2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">Code Sangam</h3>
+          <p class="text-sm text-slate-400">HackerRank competitive coding event.</p>
+        </div>
+      </article>
+
+      <article class="card-hover reveal stagger-3 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-48 bg-dark-lighter flex items-center justify-center">
+          <svg class="w-16 h-16 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-xs font-medium text-indigo-300 bg-indigo-500/10 px-2.5 py-1 rounded-full">Academic</span>
+            <span class="text-xs text-slate-500">2025 — 2029</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2">BTech — Second Year</h3>
+          <p class="text-sm text-slate-400">Bachelor of Technology in progress. Programming, DSA, DBMS.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ SKILLS / LEARNING ═══ -->
+<section id="skills" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">Growth</p>
+      <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white">What I'm Learning</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      
+      <article class="card-hover reveal stagger-1 rounded-2xl p-7 bg-dark-card">
+        <div class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg mb-5 border border-indigo-500/20">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Python & C++</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Building programming foundations for data analysis and algorithmic thinking.</p>
+        <div class="w-full bg-dark-lighter rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" style="width: 0%" data-width="55%"></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">In progress</p>
+      </article>
+
+      <article class="card-hover reveal stagger-2 rounded-2xl p-7 bg-dark-card">
+        <div class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg mb-5 border border-indigo-500/20">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Data Structures & Algorithms</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Mastering DAA fundamentals for efficient data processing.</p>
+        <div class="w-full bg-dark-lighter rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" style="width: 0%" data-width="40%"></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">In progress</p>
+      </article>
+
+      <article class="card-hover reveal stagger-3 rounded-2xl p-7 bg-dark-card">
+        <div class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg mb-5 border border-indigo-500/20">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Probability & Statistics</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Mathematical foundation for data-driven decisions.</p>
+        <div class="w-full bg-dark-lighter rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" style="width: 0%" data-width="45%"></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">In progress</p>
+      </article>
+
+      <article class="card-hover reveal stagger-1 rounded-2xl p-7 bg-dark-card">
+        <div class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg mb-5 border border-indigo-500/20">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Web Development</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Building responsive, accessible interfaces with modern frontend practices.</p>
+        <div class="w-full bg-dark-lighter rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" style="width: 0%" data-width="45%"></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">In progress</p>
+      </article>
+
+      <article class="card-hover reveal stagger-2 rounded-2xl p-7 bg-dark-card">
+        <div class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg mb-5 border border-indigo-500/20">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Database Management</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Deepening SQL expertise through normalization, indexing, and optimization.</p>
+        <div class="w-full bg-dark-lighter rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" style="width: 0%" data-width="50%"></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">In progress</p>
+      </article>
+
+      <article class="card-hover reveal stagger-3 rounded-2xl p-7 bg-dark-card">
+        <div class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg mb-5 border border-indigo-500/20">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Power BI & SQL</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Self-directed learning — dashboards, complex queries, and DAX.</p>
+        <div class="w-full bg-dark-lighter rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" style="width: 0%" data-width="65%"></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">Most advanced</p>
+      </article>
+
+      
+      <article class="card-hover reveal stagger-3 rounded-2xl p-7 bg-dark-card">
+        <div class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg mb-5 border border-indigo-500/20">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-lg text-white mb-2">Digital Logic Design</h3>
+        <p class="text-sm text-slate-400 leading-relaxed mb-4">Boolean algebra, combinational & sequential circuits, logic gates, and circuit simulation.</p>
+        <div class="w-full bg-dark-lighter rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" style="width: 0%" data-width="35%"></div>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">In progress</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ BLOG ═══ -->
+<section id="blog" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
+      <div>
+        <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">Thoughts</p>
+        <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white">From the Blog</h2>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      
+      <article class="card-hover reveal stagger-1 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-44 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80" alt="Dashboard" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2.5 py-1 rounded-full">Power BI</span>
+            <span class="text-xs text-slate-500">Jun 2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-indigo-300 transition-colors">How I Built My First Hospital Dashboard</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">From raw patient data to interactive visuals — my step-by-step process and learnings.</p>
+          <a href="blog-hospital-dashboard.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">Read more →</a>
+        </div>
+      </article>
+
+      <article class="card-hover reveal stagger-2 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-44 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=700&q=80" alt="SQL" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2.5 py-1 rounded-full">SQL</span>
+            <span class="text-xs text-slate-500">May 2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-indigo-300 transition-colors">5 SQL Concepts Every Student Should Master</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">Joins, subqueries, window functions, and query optimization essentials.</p>
+          <a href="blog-sql-student.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">Read more →</a>
+        </div>
+      </article>
+
+      <article class="card-hover reveal stagger-3 group rounded-2xl overflow-hidden bg-dark-card">
+        <div class="relative h-44 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=700&q=80" alt="Student Life" class="img-zoom w-full h-full object-cover" loading="lazy">
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent opacity-60"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-xs bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2.5 py-1 rounded-full">Student Life</span>
+            <span class="text-xs text-slate-500">Apr 2026</span>
+          </div>
+          <h3 class="font-display font-bold text-lg text-white mb-2 group-hover:text-indigo-300 transition-colors">What I Learned in My First Year</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-4">From Unity to Docker to competitive coding — my 12-month journey.</p>
+          <a href="blog-first-year.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors">Read more →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider max-w-4xl mx-auto"></div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="py-24 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="relative rounded-3xl p-10 md:p-16 overflow-hidden bg-gradient-to-br from-dark-card to-dark-lighter border border-white/5">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+      <div class="relative z-10 grid md:grid-cols-2 gap-12 items-start">
+        
+        <div>
+          <p class="reveal text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3">Get in touch</p>
+          <h2 class="reveal stagger-1 font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-5">Let's build something <span class="gradient-text">together</span></h2>
+          <p class="reveal stagger-2 text-slate-400 leading-relaxed mb-8">
+            I'm open to internships, collaborative projects, and opportunities to grow as a data analyst. Whether you have a project idea or just want to chat about tech — reach out.
+          </p>
+          
+          <div class="reveal stagger-3 flex flex-col gap-4">
+            <a href="mailto:kishan.apat.cse.2025033@nist.edu" class="group flex items-center gap-4 text-slate-400 hover:text-white transition-colors p-3 rounded-xl hover:bg-white/5">
+              <span class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-colors">
+                <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </span>
+              <span class="text-sm">kishan.apat.cse.2025033@nist.edu</span>
+            </a>
+            
+            <a href="https://linkedin.com/in/kishan-kumar-apat" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-4 text-slate-400 hover:text-white transition-colors p-3 rounded-xl hover:bg-white/5">
+              <span class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-colors">
+                <svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </span>
+              <span class="text-sm">linkedin.com/in/kishan-kumar-apat</span>
+            </a>
+            
+            <a href="https://github.com/kishan-apat" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-4 text-slate-400 hover:text-white transition-colors p-3 rounded-xl hover:bg-white/5">
+              <span class="w-10 h-10 flex items-center justify-center bg-indigo-500/10 rounded-lg border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-colors">
+                <svg class="w-4 h-4 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </span>
+              <span class="text-sm">github.com/kishan-apat</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal stagger-2">
+          <form action="#" method="POST" novalidate class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="fname" class="block text-xs font-medium text-slate-500 mb-1.5">Name <span class="text-indigo-400">*</span></label>
+                <input type="text" id="fname" name="name" placeholder="Your name" required autocomplete="name"
+                  class="w-full bg-dark-lighter/50 border border-white/10 text-white text-sm rounded-xl px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all">
+              </div>
+              <div>
+                <label for="femail" class="block text-xs font-medium text-slate-500 mb-1.5">Email <span class="text-indigo-400">*</span></label>
+                <input type="email" id="femail" name="email" placeholder="your@email.com" required autocomplete="email"
+                  class="w-full bg-dark-lighter/50 border border-white/10 text-white text-sm rounded-xl px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all">
+              </div>
+            </div>
+            <div>
+              <label for="fsubject" class="block text-xs font-medium text-slate-500 mb-1.5">Subject</label>
+              <input type="text" id="fsubject" name="subject" placeholder="Project inquiry"
+                class="w-full bg-dark-lighter/50 border border-white/10 text-white text-sm rounded-xl px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all">
+            </div>
+            <div>
+              <label for="fmessage" class="block text-xs font-medium text-slate-500 mb-1.5">Message <span class="text-indigo-400">*</span></label>
+              <textarea id="fmessage" name="message" rows="4" placeholder="Tell me about your project..." required
+                class="w-full bg-dark-lighter/50 border border-white/10 text-white text-sm rounded-xl px-4 py-3 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all resize-none"></textarea>
+            </div>
+            <button type="submit" class="shimmer-btn w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-display font-bold text-sm py-3.5 rounded-xl hover:from-indigo-600 hover:to-purple-600 transition-all glow">
+              Send message →
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="border-t border-white/5 relative">
+  <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="font-display font-bold text-white">KISHAN</span><span class="gradient-text font-display font-bold">.data</span>
+    </div>
+    <p class="text-sm text-slate-500">© <span id="yr"></span> Kishan Kumar Apat. Crafted with passion.</p>
+    <div class="flex items-center gap-4">
+      <a href="https://linkedin.com/in/kishan-kumar-apat" target="_blank" class="text-slate-500 hover:text-indigo-400 transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+      </a>
+      <a href="https://github.com/kishan-apat" target="_blank" class="text-slate-500 hover:text-indigo-400 transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ========== TYPEWRITER EFFECT WITH ERASE ==========
+class TypeWriter {
+  constructor(element, words, wait = 2000) {
+    this.element = element;
+    this.words = words;
+    this.txt = '';
+    this.wordIndex = 0;
+    this.wait = parseInt(wait, 10);
+    this.type();
+    this.isDeleting = false;
+  }
+
+  type() {
+    const current = this.wordIndex % this.words.length;
+    const fullTxt = this.words[current];
+
+    if (this.isDeleting) {
+      this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+      this.txt = fullTxt.substring(0, this.txt.length + 1);
+    }
+
+    this.element.innerHTML = this.txt;
+
+    let typeSpeed = 100;
+
+    if (this.isDeleting) {
+      typeSpeed /= 2;
+    }
+
+    if (!this.isDeleting && this.txt === fullTxt) {
+      typeSpeed = this.wait;
+      this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === '') {
+      this.isDeleting = false;
+      this.wordIndex++;
+      typeSpeed = 500;
+    }
+
+    setTimeout(() => this.type(), typeSpeed);
+  }
+}
+
+// ========== SCROLL REVEAL ==========
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ========== COUNTER ANIMATION ==========
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = parseInt(entry.target.dataset.target);
+      let current = 0;
+      const increment = target / 50;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          entry.target.textContent = target + '+';
+          clearInterval(timer);
+        } else {
+          entry.target.textContent = Math.floor(current) + '+';
+        }
+      }, 30);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+});
+document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
+
+// ========== PROGRESS BAR ANIMATION ==========
+const progressObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const width = entry.target.dataset.width;
+      setTimeout(() => {
+        entry.target.style.width = width;
+      }, 200);
+      progressObserver.unobserve(entry.target);
+    }
+  });
+});
+document.querySelectorAll('.progress-bar').forEach(p => progressObserver.observe(p));
+
+// ========== NAVBAR SCROLL EFFECT ==========
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) {
+    navbar.classList.add('bg-dark/90', 'backdrop-blur-xl', 'border-b', 'border-white/5');
+  } else {
+    navbar.classList.remove('bg-dark/90', 'backdrop-blur-xl', 'border-b', 'border-white/5');
+  }
+});
+
+// ========== MOBILE MENU ==========
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const menuIcon = document.getElementById('menuIcon');
+const closeIcon = document.getElementById('closeIcon');
+
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+  menuIcon.classList.toggle('hidden');
+  closeIcon.classList.toggle('hidden');
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('#mobileMenu a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    menuIcon.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+  });
+});
+
+// ========== MAGNETIC BUTTON EFFECT ==========
+document.querySelectorAll('.magnetic-btn').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = 'translate(0, 0)';
+  });
+});
+
+// ========== YEAR ==========
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// ========== INIT TYPEWRITER ==========
+document.addEventListener('DOMContentLoaded', () => {
+  const typewriterElement = document.getElementById('typewriter');
+  if (typewriterElement) {
+    new TypeWriter(typewriterElement, [
+      'Data Analyst',
+      'SQL Developer',
+      'Power BI Expert',
+      'Python Programmer',
+      'Dashboard Designer'
+    ], 2000);
+  }
+});
+
+// ========== ACTIVE NAV LINK ON SCROLL ==========
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    if (scrollY >= sectionTop - 200) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
