@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I Built My First Hospital Dashboard — Kishan Kumar Apat</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+html,body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#e5e5e5}
+.gradient-text{background:linear-gradient(135deg,#818cf8,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+</style>
+<base target="_blank">
+</head>
+<body class="antialiased">
+
+<nav class="fixed inset-x-0 top-0 z-50 bg-dark/90 backdrop-blur-xl border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-display font-bold text-xl"><span class="text-white">KISHAN</span><span class="gradient-text">.data</span></a>
+    <a href="index.html#blog" class="text-sm text-slate-400 hover:text-white transition-colors">← Back to Blog</a>
+  </div>
+</nav>
+
+<main class="pt-24 pb-20 max-w-3xl mx-auto px-6">
+
+  <!-- Header -->
+  <div class="mb-8">
+    <span class="text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3 block">Power BI</span>
+    <h1 class="font-display font-bold text-3xl md:text-4xl text-white mb-4 leading-tight">How I Built My First Hospital Dashboard</h1>
+    <div class="flex items-center gap-4 text-sm text-slate-500">
+      <span><i class="far fa-calendar mr-1"></i> June 2026</span>
+      <span><i class="far fa-clock mr-1"></i> 5 min read</span>
+    </div>
+  </div>
+
+  <!-- Featured Image -->
+  <div class="rounded-2xl overflow-hidden border border-white/10 mb-10">
+    <img src="project-hospital-dashboard.png" alt="Hospital Dashboard" class="w-full h-64 md:h-80 object-cover">
+  </div>
+
+  <!-- Content -->
+  <article class="prose prose-invert max-w-none">
+
+    <p class="text-slate-400 text-lg leading-relaxed mb-6">
+      As a second-year CSE-DS student, I wanted to apply my data analysis skills to a real-world scenario. I chose healthcare because it's data-rich and has a direct impact on people's lives. Here's how I built my first interactive hospital management dashboard using <strong class="text-white">Power BI</strong>, <strong class="text-white">SQL</strong>, and <strong class="text-white">Excel</strong>.
+    </p>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">The Problem</h2>
+    <p class="text-slate-400 leading-relaxed mb-6">
+      Hospital administrators need to track multiple metrics simultaneously: patient admissions, bed occupancy, doctor workload, and department-wise performance. Spreadsheets alone don't provide the real-time insights needed for quick decision-making.
+    </p>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">My Approach</h2>
+
+    <h3 class="font-display font-bold text-lg text-white mt-6 mb-3">1. Data Collection & Cleaning (Excel)</h3>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      I started with a synthetic hospital dataset containing patient records, admission dates, discharge dates, department assignments, and doctor information. I used Excel to clean the data — removing duplicates, standardizing date formats, and creating calculated columns for length of stay.
+    </p>
+
+    <h3 class="font-display font-bold text-lg text-white mt-6 mb-3">2. Database Design (SQL)</h3>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      I normalized the data into relational tables: <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">Patients</code>, <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">Doctors</code>, <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">Departments</code>, and <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">Admissions</code>. Writing SQL queries helped me understand the relationships and prepare aggregated views for the dashboard.
+    </p>
+
+    <div class="bg-dark-card border border-white/5 rounded-xl p-6 my-6 overflow-x-auto">
+      <pre class="text-sm font-mono text-slate-300"><code>-- Bed occupancy by department
+SELECT 
+    d.department_name,
+    COUNT(a.admission_id) as total_admissions,
+    AVG(DATEDIFF(day, a.admission_date, a.discharge_date)) as avg_stay
+FROM Admissions a
+JOIN Departments d ON a.department_id = d.id
+GROUP BY d.department_name
+ORDER BY total_admissions DESC;</code></pre>
+    </div>
+
+    <h3 class="font-display font-bold text-lg text-white mt-6 mb-3">3. Dashboard Design (Power BI)</h3>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      I imported the SQL views into Power BI and created:
+    </p>
+    <ul class="space-y-2 text-slate-400 mb-6 ml-4">
+      <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> <span>A <strong class="text-white">KPI card</strong> showing total patients, active admissions, and average wait time</span></li>
+      <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> <span>A <strong class="text-white">line chart</strong> for admission trends over time</span></li>
+      <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> <span>A <strong class="text-white">bar chart</strong> comparing department occupancy rates</span></li>
+      <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> <span>A <strong class="text-white">donut chart</strong> for patient demographics</span></li>
+      <li class="flex items-start gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> <span><strong class="text-white">Slicers</strong> for date range and department filtering</span></li>
+    </ul>
+
+    <h3 class="font-display font-bold text-lg text-white mt-6 mb-3">4. DAX Calculations</h3>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      I wrote custom DAX measures for dynamic calculations like bed turnover rate and doctor-patient ratio.
+    </p>
+
+    <div class="bg-dark-card border border-white/5 rounded-xl p-6 my-6 overflow-x-auto">
+      <pre class="text-sm font-mono text-slate-300"><code>Bed Occupancy Rate = 
+DIVIDE(
+    COUNTROWS(FILTER(Admissions, Admissions[Status] = "Active")),
+    SUM(Departments[Total_Beds])
+)</code></pre>
+    </div>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">Key Learnings</h2>
+    <div class="grid md:grid-cols-2 gap-4 mb-8">
+      <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+        <i class="fas fa-lightbulb text-amber-400 mb-2"></i>
+        <p class="text-sm text-white font-medium mb-1">Start with clean data</p>
+        <p class="text-xs text-slate-400">80% of the work is data preparation. A well-structured dataset makes visualization much easier.</p>
+      </div>
+      <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+        <i class="fas fa-eye text-indigo-400 mb-2"></i>
+        <p class="text-sm text-white font-medium mb-1">Design for the audience</p>
+        <p class="text-xs text-slate-400">Hospital admins need quick insights, not complex charts. Keep it simple and actionable.</p>
+      </div>
+      <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+        <i class="fas fa-sync text-purple-400 mb-2"></i>
+        <p class="text-sm text-white font-medium mb-1">Interactivity matters</p>
+        <p class="text-xs text-slate-400">Slicers and drill-through features let users explore data at their own pace.</p>
+      </div>
+      <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+        <i class="fas fa-database text-emerald-400 mb-2"></i>
+        <p class="text-sm text-white font-medium mb-1">SQL + Power BI is powerful</p>
+        <p class="text-xs text-slate-400">Using SQL for data modeling and Power BI for visualization creates a robust pipeline.</p>
+      </div>
+    </div>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">What's Next?</h2>
+    <p class="text-slate-400 leading-relaxed mb-6">
+      Now that I've built a solid foundation with Power BI, I'm pushing deeper into advanced analytics. I'm currently learning to connect Power BI to live SQL Server databases for real-time dashboards and exploring <strong class="text-white">DAX optimization</strong> techniques to make my reports faster and more responsive. I'm also experimenting with <strong class="text-white">Python-based visualization</strong> libraries like Plotly and Streamlit to create even more custom, interactive data experiences. The goal is to build dashboards that don't just display data — they tell stories and drive decisions.
+    </p>
+
+  </article>
+
+  <!-- Author Box -->
+  <div class="mt-12 p-6 bg-dark-card border border-white/5 rounded-2xl flex items-center gap-4">
+    <img src="profile (2).jpeg" alt="Kishan" class="w-14 h-14 rounded-full object-cover">
+    <div>
+      <p class="text-white font-medium">Kishan Kumar Apat</p>
+      <p class="text-sm text-slate-400">2nd Year BTech CSE-DS | Data Analyst</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="mt-10 flex gap-4">
+    <a href="index.html#blog" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all">
+      ← Back to Blog
+    </a>
+  </div>
+
+</main>
+
+<footer class="border-t border-white/5 mt-20">
+  <div class="max-w-7xl mx-auto px-6 py-8 text-center">
+    <p class="text-sm text-slate-500">© 2026 Kishan Kumar Apat</p>
+  </div>
+</footer>
+
+</body>
+</html>

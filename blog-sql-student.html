@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 SQL Concepts Every Student Should Master — Kishan Kumar Apat</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+html,body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#e5e5e5}
+.gradient-text{background:linear-gradient(135deg,#818cf8,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+</style>
+</head>
+<body class="antialiased">
+
+<nav class="fixed inset-x-0 top-0 z-50 bg-dark/90 backdrop-blur-xl border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-display font-bold text-xl"><span class="text-white">KISHAN</span><span class="gradient-text">.data</span></a>
+    <a href="index.html#blog" class="text-sm text-slate-400 hover:text-white transition-colors">← Back to Blog</a>
+  </div>
+</nav>
+
+<main class="pt-24 pb-20 max-w-3xl mx-auto px-6">
+  
+  <div class="mb-8">
+    <span class="text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3 block">SQL</span>
+    <h1 class="font-display font-bold text-3xl md:text-4xl text-white mb-4 leading-tight">5 SQL Concepts Every Student Should Master</h1>
+    <div class="flex items-center gap-4 text-sm text-slate-500">
+      <span><i class="far fa-calendar mr-1"></i> May 2026</span>
+      <span><i class="far fa-clock mr-1"></i> 7 min read</span>
+    </div>
+  </div>
+
+  <div class="rounded-2xl overflow-hidden border border-white/10 mb-10">
+    <img src="https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=1200&q=80" alt="SQL" class="w-full h-64 md:h-80 object-cover">
+  </div>
+
+  <article class="prose prose-invert max-w-none">
+    
+    <p class="text-slate-400 text-lg leading-relaxed mb-6">
+      SQL is the backbone of data analysis. Whether you're querying a small SQLite database or a massive data warehouse, these five concepts will make you write better, faster, and more efficient queries. Here's what I've learned as a CSE-DS student.
+    </p>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">1. JOINs — The Heart of Relational Databases</h2>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      Understanding JOINs is non-negotiable. Most real-world data lives across multiple tables, and JOINs are how you bring it together.
+    </p>
+    <div class="bg-dark-card border border-white/5 rounded-xl p-6 my-6 overflow-x-auto">
+      <pre class="text-sm font-mono text-slate-300"><code>-- INNER JOIN: Only matching records
+SELECT s.student_name, c.course_name
+FROM Students s
+INNER JOIN Enrollments e ON s.id = e.student_id
+INNER JOIN Courses c ON e.course_id = c.id;
+
+-- LEFT JOIN: All students, even if not enrolled
+SELECT s.student_name, c.course_name
+FROM Students s
+LEFT JOIN Enrollments e ON s.id = e.student_id
+LEFT JOIN Courses c ON e.course_id = c.id;</code></pre>
+    </div>
+    <p class="text-slate-400 leading-relaxed mb-6">
+      <strong class="text-white">Pro tip:</strong> Always visualize your tables as Venn diagrams. INNER JOIN is the intersection; LEFT JOIN is the full left circle.
+    </p>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">2. Subqueries — Queries Inside Queries</h2>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      Subqueries let you break complex problems into smaller, manageable pieces. They're great when you need to filter based on aggregated data.
+    </p>
+    <div class="bg-dark-card border border-white/5 rounded-xl p-6 my-6 overflow-x-auto">
+      <pre class="text-sm font-mono text-slate-300"><code>-- Find students who scored above average
+SELECT student_name, score
+FROM Students
+WHERE score > (SELECT AVG(score) FROM Students);</code></pre>
+    </div>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">3. Window Functions — The Game Changer</h2>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      Window functions (like <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">ROW_NUMBER()</code>, <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">RANK()</code>, <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">LAG()</code>) let you perform calculations across a set of rows related to the current row — without collapsing your result set like GROUP BY does.
+    </p>
+    <div class="bg-dark-card border border-white/5 rounded-xl p-6 my-6 overflow-x-auto">
+      <pre class="text-sm font-mono text-slate-300"><code>-- Rank students by score within each department
+SELECT 
+    student_name,
+    department,
+    score,
+    RANK() OVER (PARTITION BY department ORDER BY score DESC) as dept_rank
+FROM Students;</code></pre>
+    </div>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">4. Indexing — Speed Matters</h2>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      As your tables grow, query performance drops. Indexes are like a book's table of contents — they help the database find data faster.
+    </p>
+    <div class="bg-dark-card border border-white/5 rounded-xl p-6 my-6 overflow-x-auto">
+      <pre class="text-sm font-mono text-slate-300"><code>-- Create an index on frequently queried columns
+CREATE INDEX idx_student_email ON Students(email);
+
+-- Check if your query uses the index
+EXPLAIN SELECT * FROM Students WHERE email = 'john@example.com';</code></pre>
+    </div>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">5. CTEs — Write Cleaner SQL</h2>
+    <p class="text-slate-400 leading-relaxed mb-4">
+      Common Table Expressions (CTEs) make your queries readable and modular. They're like creating temporary views within a single query.
+    </p>
+    <div class="bg-dark-card border border-white/5 rounded-xl p-6 my-6 overflow-x-auto">
+      <pre class="text-sm font-mono text-slate-300"><code>WITH TopStudents AS (
+    SELECT student_name, score
+    FROM Students
+    WHERE score > 90
+)
+SELECT * FROM TopStudents
+ORDER BY score DESC;</code></pre>
+    </div>
+
+    <h2 class="font-display font-bold text-2xl text-white mt-10 mb-4">My Learning Path</h2>
+    <p class="text-slate-400 leading-relaxed mb-6">
+      I started with basic SELECT statements, then moved to JOINs and subqueries. Window functions were intimidating at first, but once I understood the <code class="bg-dark-card px-2 py-0.5 rounded text-indigo-300 text-sm">OVER()</code> clause, everything clicked. I practice on <a href="https://leetcode.com" target="_blank" class="text-indigo-400 hover:text-indigo-300">LeetCode</a> and <a href="https://sqlzoo.net" target="_blank" class="text-indigo-400 hover:text-indigo-300">SQLZoo</a> regularly.
+    </p>
+
+    <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-xl p-6 my-8">
+      <p class="text-indigo-300 font-medium mb-2"><i class="fas fa-quote-left mr-2"></i>Key Takeaway</p>
+      <p class="text-slate-400 text-sm">SQL is a language you learn by doing. Don't just read about it — open a database, create tables, insert data, and break things. That's how you truly understand it.</p>
+    </div>
+
+  </article>
+
+  <div class="mt-12 p-6 bg-dark-card border border-white/5 rounded-2xl flex items-center gap-4">
+    <img src="profile (2).jpeg" alt="Kishan" class="w-14 h-14 rounded-full object-cover">
+    <div>
+      <p class="text-white font-medium">Kishan Kumar Apat</p>
+      <p class="text-sm text-slate-400">2nd Year BTech CSE-DS | Data Analyst</p>
+    </div>
+  </div>
+
+  <div class="mt-10 flex gap-4">
+    <a href="index.html#blog" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all">
+      ← Back to Blog
+    </a>
+  </div>
+
+</main>
+
+<footer class="border-t border-white/5 mt-20">
+  <div class="max-w-7xl mx-auto px-6 py-8 text-center">
+    <p class="text-sm text-slate-500">© 2026 Kishan Kumar Apat</p>
+  </div>
+</footer>
+
+</body>
+</html>
