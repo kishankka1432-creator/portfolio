@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2D Platformer Game — Case Study | Kishan Kumar Apat</title>
+<meta name="description" content="Case study of a 2D Platformer Game built with Unity and C# during a Multimedia Game Development workshop.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { 
+        display: ['Space Grotesk', 'sans-serif'], 
+        body: ['Inter', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace']
+      },
+      colors: { 
+        primary: '#6366f1',
+        secondary: '#8b5cf6',
+        accent: '#ec4899',
+        dark: '#0a0a0a',
+        'dark-lighter': '#141414',
+        'dark-card': '#1a1a1a',
+        'dark-border': '#2a2a2a'
+      }
+    }
+  }
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#e5e5e5;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#6366f1,#8b5cf6);border-radius:99px}
+::selection{background:rgba(99,102,241,0.3);color:#fff}
+
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99,102,241,0.3);
+  box-shadow: 0 25px 50px -12px rgba(99,102,241,0.15);
+}
+.glow { box-shadow: 0 0 40px -10px rgba(99,102,241,0.4); }
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after { width: 100%; }
+.code-block {
+  background: #0f0f0f;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.tag-unity { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.2); }
+.tag-csharp { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+.tag-gamedev { background: rgba(236,72,153,0.15); color: #f472b6; border: 1px solid rgba(236,72,153,0.2); }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- Navigation -->
+<header class="fixed inset-x-0 top-0 z-50 bg-dark/90 backdrop-blur-xl border-b border-white/5">
+  <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-display font-bold text-xl tracking-tight">
+      <span class="text-white">KISHAN</span><span class="gradient-text">.data</span>
+    </a>
+    <a href="index.html#projects" class="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      Back to Portfolio
+    </a>
+  </nav>
+</header>
+
+<main class="pt-24 pb-20">
+  <div class="max-w-4xl mx-auto px-6">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 text-sm text-slate-500 mb-8">
+      <a href="index.html" class="hover:text-indigo-400 transition-colors">Home</a>
+      <span>/</span>
+      <a href="index.html#projects" class="hover:text-indigo-400 transition-colors">Projects</a>
+      <span>/</span>
+      <span class="text-slate-300">2D Platformer Game</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="mb-12">
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="tag tag-unity"><i class="fab fa-unity"></i>Unity</span>
+        <span class="tag tag-csharp"><i class="fas fa-code"></i>C#</span>
+        <span class="tag tag-gamedev"><i class="fas fa-gamepad"></i>Game Dev</span>
+      </div>
+      <h1 class="font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-4">
+        2D Platformer <span class="gradient-text">Game</span>
+      </h1>
+      <p class="text-lg text-slate-400 leading-relaxed max-w-2xl">
+        A complete 2D platformer built from scratch during the Multimedia Game Development workshop at NIST. Features player movement, collision detection, enemy AI, and level progression.
+      </p>
+    </div>
+
+    <!-- Video Showcase -->
+    <div class="rounded-2xl overflow-hidden border border-white/10 mb-12 bg-dark-card">
+      <div class="relative" style="padding-bottom: 56.25%;">
+        <video controls poster="project-unity-game.png" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+          <source src="game-video.mp4" type="video/mp4">
+          <p class="text-slate-400 text-center py-8">Your browser does not support video. <a href="game-video.mp4" download class="text-indigo-400">Download</a></p>
+        </video>
+      </div>
+      <div class="p-4 bg-dark-lighter/30 border-t border-white/5 flex items-center justify-between">
+        <span class="text-xs text-slate-500"><i class="fas fa-play-circle mr-2"></i>Gameplay Demo</span>
+        <span class="text-xs text-slate-500">Duration: 2:34</span>
+      </div>
+    </div>
+
+    <!-- Overview Grid -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <div class="card-hover rounded-2xl p-6 bg-dark-card">
+        <i class="fas fa-calendar text-indigo-400 mb-3"></i>
+        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Timeline</p>
+        <p class="text-white font-medium">3-Day Workshop</p>
+        <p class="text-xs text-slate-500 mt-1">March 2026</p>
+      </div>
+      <div class="card-hover rounded-2xl p-6 bg-dark-card">
+        <i class="fas fa-users text-purple-400 mb-3"></i>
+        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Team</p>
+        <p class="text-white font-medium">Solo Project</p>
+        <p class="text-xs text-slate-500 mt-1">Individual submission</p>
+      </div>
+      <div class="card-hover rounded-2xl p-6 bg-dark-card">
+        <i class="fas fa-trophy text-emerald-400 mb-3"></i>
+        <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">Outcome</p>
+        <p class="text-white font-medium">Certificate of Completion</p>
+        <p class="text-xs text-slate-500 mt-1">Successfully deployed</p>
+      </div>
+    </div>
+
+    <!-- The Challenge -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">The Challenge</h2>
+      <p class="text-slate-400 leading-relaxed mb-4">
+        The workshop required building a functional 2D platformer within 3 days with zero prior Unity experience. The goal was to implement core game mechanics including:
+      </p>
+      <ul class="space-y-2 text-slate-400 mb-6">
+        <li class="flex items-start gap-3">
+          <i class="fas fa-check-circle text-indigo-400 mt-1"></i>
+          <span>Smooth player movement with jump physics and gravity</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fas fa-check-circle text-indigo-400 mt-1"></i>
+          <span>Collision detection for platforms, enemies, and collectibles</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fas fa-check-circle text-indigo-400 mt-1"></i>
+          <span>Enemy AI with patrol patterns and player detection</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fas fa-check-circle text-indigo-400 mt-1"></i>
+          <span>Level progression with checkpoints and scoring system</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Technical Approach -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">Technical Approach</h2>
+      
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-sm">1</span>
+          Player Controller (C#)
+        </h3>
+        <div class="code-block mb-4">
+<pre><code style="color: #c084fc;">public class</code> <code style="color: #f472b6;">PlayerController</code> : <code style="color: #f472b6;">MonoBehaviour</code>
+{
+    <code style="color: #c084fc;">public float</code> moveSpeed = <code style="color: #fbbf24;">5f</code>;
+    <code style="color: #c084fc;">public float</code> jumpForce = <code style="color: #fbbf24;">12f</code>;
+    <code style="color: #c084fc;">private</code> <code style="color: #f472b6;">Rigidbody2D</code> rb;
+    <code style="color: #c084fc;">private bool</code> isGrounded;
+    
+    <code style="color: #c084fc;">void</code> <code style="color: #818cf8;">Start</code>()
+    {
+        rb = <code style="color: #f472b6;">GetComponent</code>&lt;<code style="color: #f472b6;">Rigidbody2D</code>&gt;();
+    }
+    
+    <code style="color: #c084fc;">void</code> <code style="color: #818cf8;">Update</code>()
+    {
+        <code style="color: #6b7280;">// Horizontal movement</code>
+        <code style="color: #c084fc;">float</code> moveInput = <code style="color: #f472b6;">Input</code>.<code style="color: #f472b6;">GetAxisRaw</code>(<code style="color: #34d399;">"Horizontal"</code>);
+        rb.velocity = <code style="color: #c084fc;">new</code> <code style="color: #f472b6;">Vector2</code>(moveInput * moveSpeed, rb.velocity.y);
+        
+        <code style="color: #6b7280;">// Jump with ground check</code>
+        <code style="color: #c084fc;">if</code> (<code style="color: #f472b6;">Input</code>.<code style="color: #f472b6;">GetButtonDown</code>(<code style="color: #34d399;">"Jump"</code>) && isGrounded)
+        {
+            rb.<code style="color: #f472b6;">AddForce</code>(<code style="color: #c084fc;">new</code> <code style="color: #f472b6;">Vector2</code>(<code style="color: #fbbf24;">0f</code>, jumpForce), <code style="color: #f472b6;">ForceMode2D</code>.Impulse);
+        }
+    }
+}</code></pre>
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Implemented a Rigidbody2D-based controller with smooth acceleration, variable jump height, and coyote time for forgiving platforming.
+        </p>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-sm">2</span>
+          Enemy AI System
+        </h3>
+        <p class="text-slate-400 leading-relaxed mb-4">
+          Created a simple but effective enemy patrol system using raycasting for edge detection and player tracking within a defined radius.
+        </p>
+        <div class="code-block">
+<pre><code style="color: #c084fc;">void</code> <code style="color: #818cf8;">Patrol</code>()
+{
+    <code style="color: #6b7280;">// Edge detection using raycast</code>
+    <code style="color: #f472b6;">RaycastHit2D</code> groundInfo = <code style="color: #f472b6;">Physics2D</code>.<code style="color: #f472b6;">Raycast</code>(edgeDetector.position, <code style="color: #f472b6;">Vector2</code>.down, <code style="color: #fbbf24;">1f</code>);
+    
+    <code style="color: #c084fc;">if</code> (groundInfo.collider == <code style="color: #c084fc;">false</code>)
+    {
+        <code style="color: #6b7280;">// Flip direction at platform edges</code>
+        facingRight = !facingRight;
+        transform.<code style="color: #f472b6;">localScale</code> = <code style="color: #c084fc;">new</code> <code style="color: #f472b6;">Vector3</code>(-transform.localScale.x, <code style="color: #fbbf24;">1</code>, <code style="color: #fbbf24;">1</code>);
+    }
+}</code></pre>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-sm">3</span>
+          Unity Editor Workflow
+        </h3>
+        <p class="text-slate-400 leading-relaxed">
+          Learned Unity's component-based architecture, Sprite Renderer for 2D assets, Tilemap system for level design, and Animator Controller for character state machines (idle, run, jump).
+        </p>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">Key Features Implemented</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-running text-indigo-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Player Mechanics</h4>
+          <p class="text-sm text-slate-400">Double jump, wall slide, dash ability with cooldown system</p>
+        </div>
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-robot text-purple-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Enemy Types</h4>
+          <p class="text-sm text-slate-400">Patrolling enemies, flying enemies with sine wave movement, boss with phase system</p>
+        </div>
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-coins text-amber-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Collectibles</h4>
+          <p class="text-sm text-slate-400">Coin collection with UI counter, health pickups, speed boost power-ups</p>
+        </div>
+        <div class="card-hover rounded-xl p-5 bg-dark-card">
+          <i class="fas fa-flag-checkered text-emerald-400 mb-3 text-lg"></i>
+          <h4 class="text-white font-medium mb-1">Level System</h4>
+          <p class="text-sm text-slate-400">3 complete levels with increasing difficulty, checkpoint system, timer-based scoring</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What I Learned -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">What I Learned</h2>
+      <div class="rounded-2xl p-6 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 border border-indigo-500/10">
+        <ul class="space-y-3 text-slate-300">
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>Game Loop Architecture:</strong> Understanding the importance of Update vs FixedUpdate for physics consistency</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>Collision Matrix:</strong> Layer-based collision management for complex interactions between player, enemies, and environment</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>Object Pooling:</strong> Performance optimization technique for frequently instantiated objects like projectiles</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fas fa-lightbulb text-amber-400 mt-1"></i>
+            <span><strong>Version Control:</strong> Using Git with Unity's YAML scene files and large file handling</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Screenshots Placeholder -->
+    <section class="mb-12">
+      <h2 class="font-display font-bold text-2xl text-white mb-4">Screenshots</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="rounded-xl overflow-hidden border border-white/10 bg-dark-card aspect-video flex items-center justify-center">
+          <div class="text-center">
+            <i class="fas fa-image text-slate-600 text-3xl mb-2"></i>
+            <p class="text-xs text-slate-500">Level 1 — Forest Zone</p>
+            <p class="text-xs text-slate-600 mt-1">Add screenshot: level1-screenshot.png</p>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-white/10 bg-dark-card aspect-video flex items-center justify-center">
+          <div class="text-center">
+            <i class="fas fa-image text-slate-600 text-3xl mb-2"></i>
+            <p class="text-xs text-slate-500">Boss Fight Scene</p>
+            <p class="text-xs text-slate-600 mt-1">Add screenshot: boss-screenshot.png</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500 mt-3"><i class="fas fa-info-circle mr-1"></i> Replace placeholders with actual game screenshots by saving images in your project folder and updating the src attributes.</p>
+    </section>
+
+    <!-- CTA -->
+    <div class="flex flex-wrap gap-4 pt-8 border-t border-white/5">
+      <a href="game-video.mp4" download class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all">
+        <i class="fas fa-download"></i>
+        Download Game Video
+      </a>
+      <a href="index.html#projects" class="inline-flex items-center gap-2 border border-white/10 text-slate-300 font-medium px-6 py-3 rounded-full hover:bg-white/5 transition-all">
+        <i class="fas fa-arrow-left"></i>
+        Back to Projects
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-white/5">
+  <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-slate-500">© 2026 Kishan Kumar Apat</p>
+    <a href="index.html" class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors">← Back to Portfolio</a>
+  </div>
+</footer>
+
+</body>
+</html>

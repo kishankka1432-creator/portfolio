@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What I Learned in My First Year — Kishan Kumar Apat</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+html,body{font-family:'Inter',sans-serif;background:#0a0a0a;color:#e5e5e5}
+.gradient-text{background:linear-gradient(135deg,#818cf8,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.timeline-line{position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#6366f1,#8b5cf6,#ec4899)}
+.timeline-dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);border:3px solid #0a0a0a;box-shadow:0 0 0 3px rgba(99,102,241,0.3);position:absolute;left:15px;top:6px;z-index:10}
+.skill-pill{transition:all 0.3s ease}
+.skill-pill:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(99,102,241,0.2)}
+.moment-card{transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
+.moment-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,0.3)}
+</style>
+<base target="_blank">
+</head>
+<body class="antialiased">
+
+<nav class="fixed inset-x-0 top-0 z-50 bg-dark/90 backdrop-blur-xl border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-display font-bold text-xl"><span class="text-white">KISHAN</span><span class="gradient-text">.data</span></a>
+    <a href="index.html#blog" class="text-sm text-slate-400 hover:text-white transition-colors">← Back to Blog</a>
+  </div>
+</nav>
+
+<main class="pt-24 pb-20 max-w-3xl mx-auto px-6">
+
+  <!-- Epic Header -->
+  <div class="mb-12 text-center">
+    <span class="text-xs font-medium text-indigo-400 tracking-[0.2em] uppercase mb-3 block">Student Life</span>
+    <h1 class="font-display font-bold text-4xl md:text-5xl text-white mb-4 leading-tight">
+      My First Year: <span class="gradient-text">The Plot Twist</span>
+    </h1>
+    <p class="text-slate-400 text-lg max-w-xl mx-auto mb-6">
+      From "Hello World" to "Hello Reality" — a year of code, chaos, and unexpected discoveries.
+    </p>
+    <div class="flex items-center justify-center gap-4 text-sm text-slate-500">
+      <span class="flex items-center gap-1"><i class="far fa-calendar"></i> April 2026</span>
+      <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+      <span class="flex items-center gap-1"><i class="far fa-clock"></i> 8 min read</span>
+      <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+      <span class="flex items-center gap-1"><i class="fas fa-fire text-orange-400"></i> 2,847 views</span>
+    </div>
+  </div>
+
+  <!-- Hero Image -->
+  <div class="rounded-2xl overflow-hidden border border-white/10 mb-12 relative group">
+    <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80" alt="Student Life" class="w-full h-72 md:h-96 object-cover transition-transform duration-700 group-hover:scale-105">
+    <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+    <div class="absolute bottom-6 left-6 right-6">
+      <p class="text-white font-display font-bold text-xl md:text-2xl">"The best code I wrote this year? The one that finally compiled at 3 AM."</p>
+    </div>
+  </div>
+
+  <!-- The Hook -->
+  <div class="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-500/20 rounded-2xl p-8 mb-12">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
+        <i class="fas fa-quote-left text-indigo-400 text-lg"></i>
+      </div>
+      <div>
+        <p class="text-slate-300 text-lg leading-relaxed italic">
+          "I walked into college thinking I'd learn to code. I walked out of first year realizing that coding is just 20% of the job. The other 80%? Debugging your own expectations."
+        </p>
+        <p class="text-slate-500 text-sm mt-3">— Me, after my first all-nighter</p>
+      </div>
+    </div>
+  </div>
+
+  <article class="prose prose-invert max-w-none">
+
+    <p class="text-slate-400 text-lg leading-relaxed mb-8">
+      Let's be real. First year isn't what the brochures promise. There's no montage of you effortlessly typing while lo-fi beats play in the background. Instead, there's confusion, Stack Overflow tabs you forgot to close, and that one error message that haunts your dreams. But somewhere between the chaos and the caffeine, something clicks. Here's my unfiltered first-year story.
+    </p>
+
+    <!-- Chapter 1: The Workshops -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm">01</div>
+        <h2 class="font-display font-bold text-2xl text-white">The Workshop Era: When Theory Met Reality</h2>
+      </div>
+
+      <p class="text-slate-400 leading-relaxed mb-6">
+        You know that feeling when you finally understand a concept after struggling for weeks? Multiply that by three workshops, and you get my first semester. Each workshop was a different world, and I was the tourist who didn't speak the language — until I did.
+      </p>
+
+      <!-- Workshop Cards -->
+      <div class="space-y-6 mb-8">
+
+        <!-- Game Dev -->
+        <div class="moment-card bg-dark-card border border-white/5 rounded-2xl p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/5 rounded-full blur-3xl"></div>
+          <div class="flex items-start gap-4 relative z-10">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 border border-pink-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-gamepad text-pink-400 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="font-display font-bold text-lg text-white">Multimedia Game Development</h3>
+                <span class="text-xs bg-pink-500/10 text-pink-300 border border-pink-500/20 px-2 py-0.5 rounded-full">3 Days</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed mb-3">
+                Day 1: "Unity looks complicated." Day 2: "Why is my player falling through the floor?" Day 3: "I BUILT A GAME." 
+              </p>
+              <p class="text-slate-400 text-sm leading-relaxed mb-3">
+                The 2D platformer I built wasn't going to win any awards, but watching my character jump over obstacles for the first time? That was my <strong class="text-white">main character moment</strong>. I realized programming isn't just about logic — it's about creating experiences that make people feel something.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">Unity</span>
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">C#</span>
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">Game Design</span>
+              </div>
+              <div class="mt-3 p-3 bg-dark-lighter/50 rounded-xl border border-white/5">
+                <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">The Realization</p>
+                <p class="text-sm text-slate-300 italic">"Code is a tool. Creativity is the skill."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Docker -->
+        <div class="moment-card bg-dark-card border border-white/5 rounded-2xl p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl"></div>
+          <div class="flex items-start gap-4 relative z-10">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fab fa-docker text-blue-400 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="font-display font-bold text-lg text-white">Docker Fundamentals</h3>
+                <span class="text-xs bg-blue-500/10 text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded-full">Workshop</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed mb-3">
+                Before Docker, I thought deployment meant "copy my folder to the other laptop and pray." This workshop taught me that there's a better way — and it's called <strong class="text-white">containerization</strong>.
+              </p>
+              <p class="text-slate-400 text-sm leading-relaxed mb-3">
+                Building my first Dockerfile felt like writing a recipe for my code. "Take Python 3.9, add some libraries, stir well, and serve on any machine." The moment I ran <code class="bg-dark-lighter px-2 py-0.5 rounded text-blue-300 text-xs">docker run</code> and saw my app work on a completely different system? That's when I understood why DevOps engineers exist.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">Docker</span>
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">DevOps</span>
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">Containerization</span>
+              </div>
+              <div class="mt-3 p-3 bg-dark-lighter/50 rounded-xl border border-white/5">
+                <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">The Realization</p>
+                <p class="text-sm text-slate-300 italic">"Your code isn't done until it runs somewhere else."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI -->
+        <div class="moment-card bg-dark-card border border-white/5 rounded-2xl p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl"></div>
+          <div class="flex items-start gap-4 relative z-10">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-500/20 border border-purple-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-brain text-purple-400 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <h3 class="font-display font-bold text-lg text-white">Introduction to AI</h3>
+                <span class="text-xs bg-purple-500/10 text-purple-300 border border-purple-500/20 px-2 py-0.5 rounded-full">Course</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed mb-3">
+                AI was the buzzword I kept hearing but never understood. Neural networks? Backpropagation? It all sounded like sci-fi until I built my first simple model.
+              </p>
+              <p class="text-slate-400 text-sm leading-relaxed mb-3">
+                The course demystified everything. I learned that AI isn't magic — it's <strong class="text-white">math, data, and computing power</strong> dressed up in fancy terminology. Training my first model to predict a simple pattern felt like teaching a computer to think. Spoiler: it's not thinking, but it's still pretty cool.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">Machine Learning</span>
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">Neural Networks</span>
+                <span class="skill-pill text-xs bg-dark-lighter text-slate-400 px-3 py-1.5 rounded-full border border-white/5">Python</span>
+              </div>
+              <div class="mt-3 p-3 bg-dark-lighter/50 rounded-xl border border-white/5">
+                <p class="text-xs text-slate-500 uppercase tracking-wider mb-1">The Realization</p>
+                <p class="text-sm text-slate-300 italic">"AI is just statistics with better marketing."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 2: The Competitions -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white font-bold text-sm">02</div>
+        <h2 class="font-display font-bold text-2xl text-white">The Arena: Where Egos Get Checked</h2>
+      </div>
+
+      <p class="text-slate-400 leading-relaxed mb-6">
+        Workshops teach you skills. Competitions teach you humility. Nothing quite prepares you for the existential crisis of watching a 30-minute timer tick down while your code refuses to compile.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-dark-card border border-white/5 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+              <i class="fas fa-trophy text-amber-400"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-white">Code Sangam</h3>
+              <p class="text-xs text-slate-500">HackerRank Competition</p>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            My first competitive coding event. I solved 2 out of 4 problems. The other 2? They solved me. But the adrenaline rush of optimizing a solution under pressure was addictive.
+          </p>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <i class="fas fa-chart-line text-emerald-400"></i>
+            <span>Learned: Time complexity matters. A lot.</span>
+          </div>
+        </div>
+
+        <div class="bg-dark-card border border-white/5 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+              <i class="fas fa-shield-alt text-indigo-400"></i>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-white">ICADS-26</h3>
+              <p class="text-xs text-slate-500">International Conference</p>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Not a competition, but equally intense. Listening to researchers present defense-tech applications of data science made me realize how small my "Hello World" programs are in the grand scheme.
+          </p>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <i class="fas fa-globe text-indigo-400"></i>
+            <span>Learned: Data science can literally save lives.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-6">
+        <p class="text-amber-300 font-medium mb-2"><i class="fas fa-fire mr-2"></i>The Competitive Coding Truth</p>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          You don't need to win to learn. You need to fail fast, debug faster, and come back stronger. My Code Sangam score wasn't impressive, but the DSA concepts I studied to prepare for it? Those stuck with me longer than any classroom lecture.
+        </p>
+      </div>
+    </div>
+
+    <!-- Chapter 3: Self-Learning -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-sm">03</div>
+        <h2 class="font-display font-bold text-2xl text-white">The Late-Night Grind: What Google Taught Me</h2>
+      </div>
+
+      <p class="text-slate-400 leading-relaxed mb-6">
+        Here's the thing nobody tells you: <strong class="text-white">college teaches you how to learn. The internet teaches you everything else.</strong> While my professors laid the foundation, YouTube tutorials, documentation, and Stack Overflow built the house.
+      </p>
+
+      <!-- Skills Timeline -->
+      <div class="relative pl-10 mb-8">
+        <div class="timeline-line"></div>
+
+        <div class="relative pb-8">
+          <div class="timeline-dot"></div>
+          <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <i class="fas fa-chart-bar text-indigo-400"></i>
+              <h4 class="font-display font-bold text-white">Power BI</h4>
+              <span class="text-xs text-emerald-400 ml-auto">Self-taught</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Started with YouTube tutorials. Built my first dashboard (the Hospital Management project) by trial and error. Cried when a DAX formula finally worked. Celebrated with instant noodles at 2 AM.
+            </p>
+          </div>
+        </div>
+
+        <div class="relative pb-8">
+          <div class="timeline-dot"></div>
+          <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <i class="fas fa-database text-purple-400"></i>
+              <h4 class="font-display font-bold text-white">SQL</h4>
+              <span class="text-xs text-emerald-400 ml-auto">Self-taught</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              LeetCode Database problems became my daily ritual. From "SELECT * FROM confusion" to writing complex JOINs and window functions. The dopamine hit of a query returning exactly what you expected? Unmatched.
+            </p>
+          </div>
+        </div>
+
+        <div class="relative pb-8">
+          <div class="timeline-dot"></div>
+          <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <i class="fas fa-table text-pink-400"></i>
+              <h4 class="font-display font-bold text-white">Excel / VBA</h4>
+              <span class="text-xs text-emerald-400 ml-auto">Self-taught</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              The unsung hero of data analysis. I learned pivot tables, advanced formulas, and even dabbled in VBA macros. Excel is like that reliable friend who doesn't get enough credit but always shows up.
+            </p>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="timeline-dot"></div>
+          <div class="bg-dark-card border border-white/5 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-2">
+              <i class="fab fa-python text-amber-400"></i>
+              <h4 class="font-display font-bold text-white">Python</h4>
+              <span class="text-xs text-amber-400 ml-auto">In Progress</span>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Started with basic scripts, now exploring Pandas and NumPy for data analysis. The journey from "print('Hello World')" to data manipulation is long, but every small win feels like leveling up in a game.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 4: The Reality Check -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">04</div>
+        <h2 class="font-display font-bold text-2xl text-white">The Plot Twists: What I Wish I Knew</h2>
+      </div>
+
+      <p class="text-slate-400 leading-relaxed mb-6">
+        First year comes with surprises — some pleasant, some... not so much. Here are the truths that hit me harder than a segmentation fault:
+      </p>
+
+      <div class="grid gap-4 mb-8">
+        <div class="bg-dark-card border border-red-500/10 rounded-xl p-5 flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center flex-shrink-0">
+            <span class="text-red-400 font-bold text-lg">1</span>
+          </div>
+          <div>
+            <h4 class="font-display font-bold text-white mb-1">Grades ≠ Skills</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              I spent weeks memorizing theory for exams, then realized the industry cares more about what you can <strong class="text-white">build</strong> than what you can <strong class="text-white">memorize</strong>. Your GitHub profile matters more than your GPA. Harsh truth, but truth nonetheless.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-dark-card border border-amber-500/10 rounded-xl p-5 flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+            <span class="text-amber-400 font-bold text-lg">2</span>
+          </div>
+          <div>
+            <h4 class="font-display font-bold text-white mb-1">Imposter Syndrome is Real (and Normal)</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Everyone around you seems to know more. They're not. They're just better at pretending. The sooner you accept that nobody has it all figured out, the faster you'll start actually learning instead of comparing.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-dark-card border border-indigo-500/10 rounded-xl p-5 flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+            <span class="text-indigo-400 font-bold text-lg">3</span>
+          </div>
+          <div>
+            <h4 class="font-display font-bold text-white mb-1">Consistency Beats Intensity</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              That 12-hour coding marathon feels productive, but 30 minutes every day for a month? That's where real growth happens. I learned this the hard way after burning out multiple times.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-dark-card border border-emerald-500/10 rounded-xl p-5 flex items-start gap-4">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+            <span class="text-emerald-400 font-bold text-lg">4</span>
+          </div>
+          <div>
+            <h4 class="font-display font-bold text-white mb-1">Community > Competition</h4>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              The friends I made in study groups, the seniors who answered my dumb questions, the online communities that debugged my code at midnight — they taught me more than any textbook. <strong class="text-white">Tech is collaborative, not solitary.</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter 5: Looking Forward -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">05</div>
+        <h2 class="font-display font-bold text-2xl text-white">The Next Level: Year 2 Goals</h2>
+      </div>
+
+      <p class="text-slate-400 leading-relaxed mb-6">
+        First year was the tutorial level. Year 2 is where the real game begins. Here's my quest log:
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4 mb-8">
+        <div class="bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-bullseye text-indigo-400"></i>
+            <h4 class="font-display font-bold text-white">Master DSA</h4>
+          </div>
+          <p class="text-sm text-slate-400">LeetCode daily. No excuses. Competitive coding exposed my weaknesses — time to fix them.</p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-project-diagram text-purple-400"></i>
+            <h4 class="font-display font-bold text-white">Build Real Projects</h4>
+          </div>
+          <p class="text-sm text-slate-400">Theory is comfortable. Building is where you actually learn. More dashboards, more apps, more experiments.</p>
+        </div>
+        <div class="bg-gradient-to-br from-pink-500/10 to-rose-500/10 border border-pink-500/20 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-briefcase text-pink-400"></i>
+            <h4 class="font-display font-bold text-white">Land an Internship</h4>
+          </div>
+          <p class="text-sm text-slate-400">Classroom projects are sandbox mode. I need real-world experience. Time to apply, fail, learn, and try again.</p>
+        </div>
+        <div class="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <i class="fas fa-users text-emerald-400"></i>
+            <h4 class="font-display font-bold text-white">Contribute to Open Source</h4>
+          </div>
+          <p class="text-sm text-slate-400">Give back to the community that taught me. Even small contributions matter. It's about the journey, not the PR count.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Closing -->
+    <div class="bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 border border-indigo-500/20 rounded-2xl p-8 mb-12">
+      <div class="text-center">
+        <i class="fas fa-rocket text-4xl text-indigo-400 mb-4"></i>
+        <h3 class="font-display font-bold text-2xl text-white mb-3">To Every First-Year Reading This</h3>
+        <p class="text-slate-300 leading-relaxed text-lg mb-4">
+          You're going to feel lost. You're going to question if you chose the right field. You're going to stare at error messages that make zero sense. 
+        </p>
+        <p class="text-slate-300 leading-relaxed text-lg mb-4">
+          But then — <strong class="text-white">one day, something will click</strong>. A concept will make sense. A project will work. And you'll realize that every struggle was just loading screen for the next level.
+        </p>
+        <p class="text-white font-display font-bold text-xl">
+          Keep building. Keep breaking. Keep learning. <span class="gradient-text">The best is yet to come.</span>
+        </p>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- Author Box -->
+  <div class="mt-12 p-6 bg-dark-card border border-white/5 rounded-2xl flex items-center gap-4">
+    <img src="profile (2).jpeg" alt="Kishan" class="w-14 h-14 rounded-full object-cover border-2 border-indigo-500/30">
+    <div>
+      <p class="text-white font-medium">Kishan Kumar Apat</p>
+      <p class="text-sm text-slate-400">2nd Year BTech CSE-DS | Data Analyst | Professional Bug Creator</p>
+    </div>
+  </div>
+
+  <!-- Share & CTA -->
+  <div class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <a href="index.html#blog" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium px-6 py-3 rounded-full hover:from-indigo-600 hover:to-purple-600 transition-all">
+      ← Back to Blog
+    </a>
+    <div class="flex items-center gap-3">
+      <span class="text-sm text-slate-500">Share:</span>
+      <button class="w-10 h-10 rounded-xl bg-dark-card border border-white/5 flex items-center justify-center text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all">
+        <i class="fab fa-twitter"></i>
+      </button>
+      <button class="w-10 h-10 rounded-xl bg-dark-card border border-white/5 flex items-center justify-center text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all">
+        <i class="fab fa-linkedin-in"></i>
+      </button>
+      <button class="w-10 h-10 rounded-xl bg-dark-card border border-white/5 flex items-center justify-center text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-all">
+        <i class="fas fa-link"></i>
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<footer class="border-t border-white/5 mt-20">
+  <div class="max-w-7xl mx-auto px-6 py-8 text-center">
+    <p class="text-sm text-slate-500">© 2026 Kishan Kumar Apat</p>
+  </div>
+</footer>
+
+</body>
+</html>
